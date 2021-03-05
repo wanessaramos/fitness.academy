@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+    <head>
+        
+    </head>
+    <body> 
+       <header></header> 
+            <div class="col-md-12" th:fragment="menu-aluno">
+                <nav id="menu">
+                        <ul>
+                            <li>
+                                <a href="/aluno/formUpdate.html" title="perfil" id="perfil-aluno"  th:href="@{'/aluno/edit-'+${aluno.id}+'-aluno'}" ><i class = "icon ion-md-contact"></i> Perfil</a>
+                            </li>
+                            <div class="dropdown">
+                              <button class="dropbtn" id="cronogramas-aluno"> <i class = "icon ion-md-calendar"></i> Cronogramas</button>
+                              <div class="dropdown-content">
+                                <a href="cronograma/formNew.html" title="novo cronograma"  th:href="@{'/cronograma/aluno-'+${aluno.id}+'-new-cronograma'}">Cadastrar</a>
+                                <a href="cronograma/listar-cronogramas.html" title="listar cronogramas"
+                                    th:href="@{'/cronograma/aluno-'+${aluno.id}+'-listar-cronogramas'}">Listar</a>
+                              </div>
+                            </div>
+                             <div class="dropdown">
+                              <button class="dropbtn" id="mensalidades-aluno"> <i class = "icon ion-md-cash"></i> Mensalidades</button>
+                              <div class="dropdown-content">
+                                <a href="/mensalidade/form.html" title="nova mensalidade" id="mensalidades-aluno" th:href="@{'/mensalidade/new-'+${aluno.id}}">Cadastrar</a>
+                                 <a href="mensalidade/listar-mensalidades.html" title="listar mensalidades"
+                                    th:href="@{'/mensalidade/aluno-'+${aluno.id}+'-listar-mensalidades'}">Listar</a>
+                              </div>
+                            </div>
+                        </ul>
+                    </nav>
+               </div>      
+    </body>
+</html>
+ 

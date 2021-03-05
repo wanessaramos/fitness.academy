@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="shortcut icon" type="image/x-icon" href="../../static/images/fitness.ico">
+        <link th:href="@{/css/style.css}" rel="stylesheet" />
+        <link href = "https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css"  rel = "stylesheet" >
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+        <title>Academy Fitness</title>
+    </head>
+    <body> 
+       <header th:fragment="nav">
+           <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+              <div class="container-fluid">
+                <a class="navbar-brand" href="#" style="color:yellow">Academy Fitness</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                  <ul class="navbar-nav">
+                     <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Aluno
+                      </a>
+                      <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="aluno/form.html" th:href="@{/aluno/new}">Cadastrar</a></li>
+                        <li><a class="dropdown-item" href="aluno/listar-alunos.html" th:href="@{/aluno/listar-alunos}">Listar</a></li>
+                      </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Professor
+                      </a>
+                      <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="professor/form.html" th:href="@{/professor/new}">Cadastrar</a></li>
+                        <li><a class="dropdown-item" href="professor/listar-professores.html" th:href="@{/professor/listar-professores}">Listar</a></li>
+                      </ul>
+                    </li>
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Turma
+                      </a>
+                      <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="turma/form.html" th:href="@{/turma/new}">Cadastrar</a></li>
+                        <li><a class="dropdown-item" href="turma/listar-turmas.html" th:href="@{/turma/listar-turmas}">Listar</a></li>
+                      </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Exercicio
+                      </a>
+                      <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="exercicio/form.html" th:href="@{/exercicio/new}">Cadastrar</a></li>
+                        <li><a class="dropdown-item" href="exercicio/listar-exercicios.html" th:href="@{/exercicio/listar-exercicios}">Listar</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+           </nav>
+        </header>
+</body>

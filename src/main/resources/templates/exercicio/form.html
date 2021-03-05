@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+    <head th:insert="fragments/head :: head"></head>
+    <body>
+       <header th:replace="fragments/nav :: nav"></header> 
+             <div class="container">
+                   <div class="col-md-12">
+                     <div th:switch="${aviso}">
+                            <div th:case="'sucesso salvar'" class="alert alert-success
+                                alert-dismissible fade show" role="alert">Exercício salvo
+                            com sucesso!</div>
+                            <div th:case="'erro salvar'" class="alert alert-danger alertdismissible fade show" role="alert">Erro ao salvar
+                            exercício.</div>
+                            <div th:case="'sucesso excluir'" class="alert alert-success
+                                alert-dismissible fade show" role="alert">Exercício excluído
+                            com sucesso!</div>
+                            <div th:case="'erro excluir'" class="alert alert-
+                            danger alert-dismissible fade show" role="alert">
+                            Erro ao excluir exercício.</div>
+                    </div>
+				</div>
+                    <div class="col-md-12">
+                         <h4>Cadastro de Exercício</h4>
+                    <hr>
+                         <form action="#"  th:action="@{/exercicio/save}" th:object="${exercicio}" >
+                             <div class="col-md-12">
+                                 <div class="row">
+                                     <div class="col-md-3">
+                                          <label for="nome" th:text="Nome"></label>
+                                          <input type="text" class="form-control" th:field="*{nome}" required>
+                                     </div>
+       
+                                     <div class="col-md-3">
+                                             <label for="carga" th:text="Carga"></label>
+                                             <input type="text" class="form-control" th:field="*{carga}" required>
+                                     </div>
+
+                                     <div class="col-md-2">
+                                             <label for="intervalo" th:text="Intervalo"></label>
+                                             <input type="text" class="form-control" th:field="*{intervalo}"required>
+                                     </div>
+
+                                     <div class="col-md-2">
+                                              <label for="repeticoes" th:text="Repetições"></label>
+                                              <input type="text" class="form-control"  th:field="*{repeticoes}" required>
+                                     </div>
+
+                                     <div class="col-md-2">
+                                              <label for="serie" th:text="Séries"></label>
+                                              <input type="text" class="form-control" th:field="*{serie}" required>
+                                     </div>
+                                
+                                    <div class="col-md-12" style="padding-top: 20px">
+
+                                        <input type="submit" value="Enviar" class="btn btn-dark"/>
+                                        <input type="reset" value="Cancelar" id="bt_reset" class="btn btn-danger"/>
+
+                                    </div> 
+                                </div>
+                            </div>
+                        </form>
+                    </div>   
+            </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    </body>
+</html>
+

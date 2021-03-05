@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+    <head th:insert="fragments/head :: head"></head>
+    <body>
+       <header th:replace="fragments/nav :: nav"></header> 
+             <div class="container">
+                <div class="col-md-12">
+                     <h4>Alunos</h4>
+                    <hr>
+				</div>
+                <div class="container">
+                    <div class="col-md-12">
+                            <table class=" table table-striped"  th:unless="${#lists.isEmpty(professores)}">
+                                 <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Matrícula</th>
+                                        <th scope="col">Nome</th>
+                                        <th scope="col">Opções</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr scope="row" th:each="professores,num : ${professores}">
+                                        <td th:text="${num.count}"></td>
+                                        <td th:text="${professores.matricula}"></td>
+                                        <td th:text="${professores.nome}"></td>
+                                        <td>
+                                        <a class="btn btn-dark" href="#" title="editar professor"
+                                           th:href="@{'/professor/edit-'+${professores.id}+'-professor'}">
+                                        <i class = "icon ion-md-create"> </i>Editar
+                                         </a>
+                                        <a class="btn btn-danger" href="#" id="bt_reset" title="deletar professor"
+                                           th:href="@{'/professor/delete-'+${professores.id}+'-professor'}">
+                                           <i class = "icon ion-md-trash"> </i>Excluir
+                                     </a>
+                                    </tr>
+                                </tbody>
+                            </table>
+                    </div>
+                </div>
+            </div>
+    </body>
+</html>

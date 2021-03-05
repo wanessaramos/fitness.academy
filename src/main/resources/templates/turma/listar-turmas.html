@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+    <head th:insert="fragments/head :: head"></head>
+    <body>
+        <header th:replace="fragments/nav :: nav"></header> 
+             <div class="container">
+                <div class="col-md-12">
+                     <h4>Turmas</h4>
+                    <hr>
+				</div>
+                <div class="container">
+                    <div class="col-md-12">
+                            <table class=" table table-striped"  th:unless="${#lists.isEmpty(turmas)}">
+                                 <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Nome</th>
+                                        <th scope="col">Opções</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr scope="row" th:each="turmas,num : ${turmas}">
+                                        <td th:text="${num.count}"></td>
+                                        <td th:text="${turmas.nome}"></td>
+                                        <td>
+                                        <a class="btn btn-dark" href="#" title="editar turma"
+                                           th:href="@{'/turma/edit-'+${turmas.id}+'-turma'}">
+                                         <i class = "icon ion-md-create"> </i> editar
+                                         </a>
+                                        <a class="btn btn-danger" id="bt_reset" href="#"  title="deletar turma"
+                                           th:href="@{'/turma/delete-'+${turmas.id}+'-turma'}">
+                                        <i class = "icon ion-md-trash"> </i> excluir
+                                     </a>
+                                    </tr>
+                                </tbody>
+                            </table>
+                    </div>
+                </div>
+            </div>    
+    </body>
+</html>

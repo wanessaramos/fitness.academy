@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+    <head th:insert="fragments/head :: head"></head>
+    <body id="pagamentos"> 
+       <header th:replace="fragments/nav :: nav"></header> 
+             <div class="container">
+                <div class="col-md-12">
+                     <div th:switch="${aviso}">
+                            <div th:case="'sucesso salvar'" class="alert alert-success
+                                alert-dismissible fade show" role="alert">Pagamento salvo
+                            com sucesso!</div>
+                            <div th:case="'erro salvar'" class="alert alert-danger alertdismissible fade show" role="alert">Erro ao salvar
+                            pagamento.</div>
+                            <div th:case="'sucesso excluir'" class="alert alert-success
+                                alert-dismissible fade show" role="alert">Pagamento excluído
+                            com sucesso!</div>
+                            <div th:case="'erro excluir'" class="alert alert-
+                            danger alert-dismissible fade show" role="alert">
+                            Erro ao excluir pagamento.</div>
+                    </div>
+				</div>
+                    <div class="col-md-12">     
+                        <div class="col-md-12">
+                            <h4>Pagamento</h4> <hr>
+                            <div class="col-md-12" th:replace="fragments/menu-professor :: menu-professor"></div> 
+                                <div class="row">
+                                    <div class="col-md-1"  th:object="${funcionario}">   
+                                         <label for="Id" th:text="Id"></label>
+                                         <input type="text" class="form-control" id="id" name="id" 
+                                                th:field="${funcionario.id}" readonly="readonly"> 
+                                    </div>                
+                                    <div class="col-md-2" th:object="${funcionario}">
+                                        <label for="Matricula" th:text="Matricula"></label>
+                                                <input type="text" class="form-control" id="matricula"  th:field="${funcionario.matricula}" readonly="readonly"> 
+                                    </div>
+                                    <div class="col-md-9" th:object="${funcionario}">
+                                            <label for="Nome" th:text="Nome"></label>
+                                            <input type="text" class="form-control" id="nome" th:field="${funcionario.nome}" readonly="readonly"> 
+                                    </div>               
+                                </div>
+                           <form action="#"  th:action="@{'/pagamento/save-'+${funcionario.id}}" th:object="${pagamento}">
+                                <div class="row">
+                                     <div class="col-md-3">
+                                        <label for="descricao" th:text="Descrição"></label>
+                                        <select id="meses" name="selectMes" class="form-select" aria-label="Default select example" th:field="*{descricao}">
+                                            <option value="Salário">Salário</option>
+                                            <option value="Bonificacaçãp">Bonificação</option>
+                                            <option value="Férias">Férias</option>
+                                            <option value="Outro">Outro</option>
+                                         </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="valor" th:text="Valor"></label>
+                                        <input type="text" class="form-control" id="valor" name="valor" th:field="*{valor}" required>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="data" th:text="Data"></label>
+                                        <input type="date" class="form-control" id="date_pagamento" name="date_pagamento" required th:field="*{date_pagamento}">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="Status" th:text="Status"></label>
+                                        <select id="status" name="status" class="form-select" aria-label="Default select example" th:field="*{status}" onblur="test(this.value)">
+                                            <option value="pendente">pendente</option>
+                                            <option value="pago">pago</option> 
+                                        </select>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6" style="padding-top: 20px">
+                                        <input type="submit" value="Salvar" class="btn btn-dark"/>
+                                        <input type="reset" value="Cancelar" id="bt_reset" class="btn btn-danger"/>
+                                        </div>   
+                                    </div>
+                                </div>
+                                  </form> 
+                             </div>
+                     </div>       
+            </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    </body>
+</html>
+<script>
+    
+    document.getElementById('date_pagamento').min = new Date().toISOString().slice(0, 10);
+  
+</script>

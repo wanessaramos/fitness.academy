@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+    <head th:insert="fragments/head :: head"></head>
+    <body>
+       <header th:replace="fragments/nav :: nav"></header> 
+             <div class="container">
+                <div class="col-md-12">
+                     <h4>Exercicios</h4>
+                    <hr>
+				</div>
+                <div class="container">
+                    <div class="col-md-12">
+                            <table class=" table table-striped"  th:unless="${#lists.isEmpty(exercicios)}">
+                                 <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Nome</th>
+                                        <th scope="col">Opções</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr scope="row" th:each="exercicios,num : ${exercicios}">
+                                        <td th:text="${num.count}"></td>
+                                        <td th:text="${exercicios.nome}"></td>
+                                        <td>
+                                        <a class="btn btn-dark" href="#" title="editar exercicio"
+                                           th:href="@{'/exercicio/edit-'+${exercicios.id}+'-exercicio'}">
+                                        <i class = "icon ion-md-create"></i> editar
+                                         </a>
+                                        <a class="btn btn-danger" id="bt_reset" href="#"  title="deletar exercicio"
+                                           th:href="@{'/exercicio/delete-'+${exercicios.id}+'-exercicio'}">
+                                            <i class = "icon ion-md-trash"></i> excluir
+                                     </a>
+                                    </tr>
+                                </tbody>
+                            </table>
+                    </div>
+                </div>
+            </div>    
+    </body>
+</html>

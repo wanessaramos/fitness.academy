@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+    <head>
+        
+    </head>
+    <body> 
+       <header></header> 
+            <div class="col-md-12" th:fragment="menu-professor">
+                <nav id="menu">
+                        <ul>
+                            <li>
+                                <a href="/professor/formUpdate.html" title="perfil" id="perfil-professor"  th:href="@{'/professor/edit-'+${funcionario.id}+'-professor'}"><i class = "icon ion-md-contact"></i> Perfil</a>
+                            </li>
+                            <div class="dropdown">
+                              <button class="dropbtn" id="turmas-professor" title="listar turmas"> <i class = "icon ion-md-people"></i> Turmas</button>
+                              <div class="dropdown-content">
+                                <a href="professor/adicionar-turmas.html" title="adicionar turma"  th:href="@{'/professor/listar-turmas-'+${funcionario.id}}">Adicionar</a>
+                                <a href="professor/listar-turmas.html" title="listar turmas" 
+                                    th:href="@{'/professor/listar-turmas-'+${funcionario.id}+'-professor'}">Listar</a>
+                              </div>
+                            </div>
+                            <div class="dropdown">
+                              <button class="dropbtn" id="pagamentos-professor" title="pagamentos"> <i class = "icon ion-md-cash"></i> Pagamentos</button>
+                              <div class="dropdown-content">
+                                <a href="pagamento/form.html" title="novo pagamento"  th:href="@{'/pagamento/funcionario-'+${funcionario.id}+'-new-pagamento'}">Cadastrar</a>
+                                <a href="pagamento/listar-pagamentos.html" title="listar pagamentos"
+                                    th:href="@{'/pagamento/funcionario-'+${funcionario.id}+'-listar-pagamentos'}">Listar</a>
+                              </div>
+                            </div>
+                        </ul>
+                    </nav>
+               </div>      
+    </body>
+</html>
+ 

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+    <head th:insert="fragments/head :: head"></head>
+    <body>
+        <header th:replace="fragments/nav :: nav"></header> 
+             <div class="container">
+                  <div class="col-md-12">
+                       <div th:switch="${aviso}">
+                            <div th:case="'sucesso salvar'" class="alert alert-success
+                                alert-dismissible fade show" role="alert">Aluno salvo
+                            com sucesso!</div>
+                            <div th:case="'sucesso excluir'" class="alert alert-success
+                                alert-dismissible fade show" role="alert">Aluno excluído
+                            com sucesso!</div>
+                            <div th:case="'erro salvar'" class="alert alert-danger alertdismissible fade show" role="alert">Houve ao tentar salvar o
+                            aluno!</div>
+                            <div th:case="'erro excluir'" class="alert alert-danger alertdismissible fade show" role="alert">Houve ao tentar excluir o
+                            aluno!</div>
+                    </div>
+				</div>
+                <div class="col-md-12">
+                     <h4>Alunos</h4>
+                    <hr>
+				</div>
+                <div class="container">
+                    <div class="col-md-12">
+                            <table class=" table table-striped"  th:unless="${#lists.isEmpty(alunos)}">
+                                 <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Matrícula</th>
+                                        <th scope="col">Nome</th>
+                                        <th scope="col">Opções</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr scope="row" th:each="alunos,num : ${alunos}">
+                                        <td th:text="${num.count}"></td>
+                                        <td th:text="${alunos.matricula}"></td>
+                                        <td th:text="${alunos.nome}"></td>
+                                        <td>
+                                        <a class="btn btn-dark" href="#" title="editar aluno"
+                                           th:href="@{'/aluno/edit-'+${alunos.id}+'-aluno'}">
+                                         <i class = "icon ion-md-create"> </i>editar
+                                         </a>
+                                        <a class="btn btn-danger" href="#" id="bt_reset" title="deletar aluno"
+                                           th:href="@{'/aluno/delete-'+${alunos.id}+'-aluno'}">
+                                         <i class = "icon ion-md-trash"> </i>excluir
+                                     </a>
+                                    </tr>
+                                </tbody>
+                            </table>
+                    </div>
+                </div>
+            </div>
+    </body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+    <head>
+        
+    </head>
+    <body> 
+       <header></header> 
+            <div class="col-md-12" th:fragment="menu-turma">
+                <nav id="menu">
+                        <ul>
+                            <li>
+                                <a href="turma/formUpdate.html" title="perfil" id="perfil-turma" th:href="@{'/turma/edit-'+${turma.id}+'-turma'}"><i class = "icon ion-md-people"></i> Turma</a>
+                            </li>
+                            <li>
+                                <a href="turma/listar-professores.html" title="listar professores" id="lista-professores"
+                                   th:href="@{'/turma/listar-professores-'+${turma.id}+'-turma'}"><i class = "icon ion-md-contacts"></i> Professores</a>
+                            </li>
+                            <li>
+                                <a href="turma/listar-alunos.html" title="listar alunos" id="lista-alunos" 
+                                   th:href="@{'/turma/listar-alunos-'+${turma.id}+'-turma'}"><i class = "icon ion-md-contacts"></i> Alunos</a>
+                            </li>
+                        </ul>
+                    </nav>
+               </div>      
+    </body>
+</html>
+ 

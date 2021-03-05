@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+    <head th:insert="fragments/head :: head"></head>
+    <body id="mensalidades"> 
+       <header th:replace="fragments/nav :: nav"></header> 
+             <div class="container">
+                <div class="col-md-12">
+                     <div th:switch="${aviso}">
+                            <div th:case="'sucesso salvar'" class="alert alert-success
+                                alert-dismissible fade show" role="alert">Mensalidade salva
+                            com sucesso!</div>
+                            <div th:case="'erro salvar'" class="alert alert-danger alertdismissible fade show" role="alert">Erro ao salvar
+                            mensalidade.</div>
+                            <div th:case="'sucesso excluir'" class="alert alert-success
+                                alert-dismissible fade show" role="alert">Mensalidade excluída
+                            com sucesso!</div>
+                            <div th:case="'erro excluir'" class="alert alert-
+                            danger alert-dismissible fade show" role="alert">
+                            Erro ao excluir mensalidade.</div>
+                    </div>
+				</div>
+                    <div class="col-md-12">     
+                        <div class="col-md-12">
+                            <h4>Mensalidade</h4> <hr>
+                            <div class="col-md-12" th:replace="fragments/menu-aluno :: menu-aluno"></div> 
+                                <div class="row">
+                                    <div class="col-md-1"  th:object="${aluno}">   
+                                         <label for="Id" th:text="Id"></label>
+                                         <input type="text" class="form-control" id="id" name="id" 
+                                                th:field="${aluno.id}" readonly="readonly"> 
+                                    </div>                
+                                    <div class="col-md-2" th:object="${aluno}">
+                                        <label for="Matricula" th:text="Matricula"></label>
+                                                <input type="text" class="form-control" id="matricula"  th:field="${aluno.matricula}" readonly="readonly"> 
+                                    </div>
+                                    <div class="col-md-9" th:object="${aluno}">
+                                            <label for="Nome" th:text="Nome"></label>
+                                            <input type="text" class="form-control" id="nome" th:field="${aluno.nome}" readonly="readonly"> 
+                                    </div>               
+                                </div>
+                           <form action="#"  th:action="@{'/mensalidade/update-'+${aluno.id}}" th:object="${mensalidade}">
+                                <div class="row">
+                                     <div class="col-md-3" style="display: none">
+                                        <label for="Id" th:text="Id"></label>
+                                        <input type="text" class="form-control" id="id" name="id" th:field="${mensalidade.id}" required>
+                                    </div>
+                                     <div class="col-md-3">
+                                        <label for="Mes" th:text="Mês"></label>
+                                        <select id="meses" name="selectMes" class="form-select" aria-label="Default select example" th:field="*{mes}">
+                                            <option value="1">Janeiro</option>
+                                            <option value="2">Fevereiro</option>
+                                            <option value="3">Março</option>
+                                            <option value="4">Abril</option>
+                                            <option value="5">Maio</option>
+                                            <option value="6">Junho</option>
+                                            <option value="7">Julho</option>
+                                            <option value="8">Agosto</option>
+                                            <option value="9">Setembro</option>
+                                            <option value="10">Octubro</option>
+                                            <option value="11">Novembro</option>
+                                            <option value="12">Dezembro</option>
+                                         </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="valor" th:text="Valor"></label>
+                                        <input type="text" class="form-control" id="valor" name="valor" th:field="*{valor}" required>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="Vencimento" th:text="Vencimento"></label>
+                                        <input type="date" class="form-control" id="vencimento" name="vencimento" required th:field="*{vencimento}">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="Status" th:text="Status"></label>
+                                        <select id="status" name="status" class="form-select" aria-label="Default select example" th:field="*{status}">
+                                            <option value="pendente">pendente</option>
+                                            <option value="paga">paga</option> 
+                                        </select>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6" style="padding-top: 20px">
+                                        <input type="submit" value="Salvar" class="btn btn-dark"/>
+                                        <input type="reset" value="Cancelar" id="bt_reset" class="btn btn-danger"/>
+                                        </div>   
+                                    </div>
+                                </div>
+                                  </form> 
+                             </div>
+                     </div>       
+            </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    </body>
+</html>
+<script>
+    
+    document.getElementById('vencimento').min = new Date().toISOString().slice(0, 10);
+  
+    var d = new Date(),
+    
+    n = d.getMonth(),
+    
+    y = d.getFullYear();
+
+    $('#meses option:eq('+n+')').prop('selected', true);
+    
+    for (var i = 0; i < n; i++) {
+        $('#meses option:eq('+i+')').prop('disabled', true);
+    }
+</script>
