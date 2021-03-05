@@ -8,12 +8,6 @@ import javax.persistence.*;
 @Table(name="professor")
 public class Professor extends Funcionario{
 	
-	@Column(nullable=false,length=100)
-	private String login;
-	
-	@Column(nullable=false,length=100)
-	private String senha;
-	
 	@ManyToMany(mappedBy="professores")
 	private Set<Turma> turmas = new HashSet<>();
 
@@ -22,15 +16,13 @@ public class Professor extends Funcionario{
 		// TODO Auto-generated constructor stub
 	}
 
-	public Professor(String login, String senha, Set<Turma> turmas) {
+	public Professor(Set<Turma> turmas) {
 		super();
-		this.login = login;
-		this.senha = senha;
 		this.turmas = turmas;
 	}
 	
 	public Professor(String matricula, String nome, String telefone, String rg, String cpf, double salario,
-			Endereco endereco,String login, String senha) {
+			Endereco endereco) {
 		super(matricula, nome, telefone, rg, cpf, salario, endereco);
 		this.matricula = matricula;
 		this.nome = nome;
@@ -39,24 +31,7 @@ public class Professor extends Funcionario{
 		this.cpf = cpf;
 		this.salario = salario;
 		this.endereco = endereco;
-		this.login = login;
-		this.senha = senha;
-	}
-
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
-	}
-
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
+		
 	}
 
 	public String getMatricula() {

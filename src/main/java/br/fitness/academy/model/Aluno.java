@@ -19,12 +19,6 @@ public class Aluno {
 		@Column(nullable=false,length=100)
 		private String nome;
 		
-		@Column(nullable=false,length=10)
-		private String login;
-		
-		@Column(nullable=false, length=10)
-		private String senha;
-		
 		@Column(nullable=false,length=14)
 		private String cpf;
 		
@@ -54,13 +48,11 @@ public class Aluno {
 			// TODO Auto-generated constructor stub
 		}
 		
-		public Aluno(String matricula, String nome, String login, String senha, String cpf, String rg, String telefone,
+		public Aluno(String matricula, String nome, String cpf, String rg, String telefone,
 				Endereco endereco) {
 			super();
 			this.matricula = matricula;
 			this.nome = nome;
-			this.login = login;
-			this.senha = senha;
 			this.cpf = cpf;
 			this.rg = rg;
 			this.telefone = telefone;
@@ -89,22 +81,6 @@ public class Aluno {
 
 		public void setNome(String nome) {
 			this.nome = nome;
-		}
-
-		public String getLogin() {
-			return login;
-		}
-
-		public void setLogin(String login) {
-			this.login = login;
-		}
-
-		public String getSenha() {
-			return senha;
-		}
-
-		public void setSenha(String senha) {
-			this.senha = senha;
 		}
 
 		public String getCpf() {
@@ -214,12 +190,11 @@ public class Aluno {
 			result = prime * result + ((cronogramas == null) ? 0 : cronogramas.hashCode());
 			result = prime * result + ((endereco == null) ? 0 : endereco.hashCode());
 			result = prime * result + (int) (id ^ (id >>> 32));
-			result = prime * result + ((login == null) ? 0 : login.hashCode());
 			result = prime * result + ((matricula == null) ? 0 : matricula.hashCode());
 			result = prime * result + ((mensalidades == null) ? 0 : mensalidades.hashCode());
 			result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+			result = prime * result + ((photos == null) ? 0 : photos.hashCode());
 			result = prime * result + ((rg == null) ? 0 : rg.hashCode());
-			result = prime * result + ((senha == null) ? 0 : senha.hashCode());
 			result = prime * result + ((telefone == null) ? 0 : telefone.hashCode());
 			return result;
 		}
@@ -250,11 +225,6 @@ public class Aluno {
 				return false;
 			if (id != other.id)
 				return false;
-			if (login == null) {
-				if (other.login != null)
-					return false;
-			} else if (!login.equals(other.login))
-				return false;
 			if (matricula == null) {
 				if (other.matricula != null)
 					return false;
@@ -270,15 +240,15 @@ public class Aluno {
 					return false;
 			} else if (!nome.equals(other.nome))
 				return false;
+			if (photos == null) {
+				if (other.photos != null)
+					return false;
+			} else if (!photos.equals(other.photos))
+				return false;
 			if (rg == null) {
 				if (other.rg != null)
 					return false;
 			} else if (!rg.equals(other.rg))
-				return false;
-			if (senha == null) {
-				if (other.senha != null)
-					return false;
-			} else if (!senha.equals(other.senha))
 				return false;
 			if (telefone == null) {
 				if (other.telefone != null)
@@ -290,7 +260,9 @@ public class Aluno {
 
 		@Override
 		public String toString() {
-			return "Aluno [id=" + id + ", matricula=" + matricula + ", nome=" + nome + ", login=" + login + ", senha="
-					+ senha + ", cpf=" + cpf + ", rg=" + rg + ", telefone=" + telefone + ", endereco=" + endereco + "]";
-		}	
+			return "Aluno [matricula=" + matricula + ", nome=" + nome + ", cpf=" + cpf + ", rg=" + rg + ", telefone="
+					+ telefone + ", photos=" + photos + ", endereco=" + endereco + ", mensalidades=" + mensalidades
+					+ ", cronogramas=" + cronogramas + "]";
+		}
+		
 }

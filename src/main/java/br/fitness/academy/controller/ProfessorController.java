@@ -76,38 +76,50 @@ public class ProfessorController {
 			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 			funcionario.setPhotos(fileName);
 			
-			Endereco enderecoProfessor= enderecoRepository.save(endereco);
-			
 	 		Calendar calendar = GregorianCalendar.getInstance();
 			int anoAtual = calendar.get(Calendar.YEAR);
-			//System.out.println("count"+professorRepository.count());
 			
-			List<Professor> professores = professorRepository.findAll();
-			Professor ultimoCadastrado = professores.get(professores.size()-1);
-			String matricula = ultimoCadastrado.getMatricula();
-			String modificada = matricula.substring(4, matricula.length());
-			int modificadaConvertida = Integer.parseInt(modificada);
-			int digitoMatricula = modificadaConvertida + 1;
-			funcionario.setMatricula(anoAtual+""+digitoMatricula); 
+			List<Professor> professores  = professorRepository.findAll();
+			if(professores.size() == 0) {
+				funcionario.setMatricula(anoAtual+""+(professorRepository.count()+1));
+			}else {
+				Professor ultimoCadastrado = professores.get(professores.size()-1);
+				String matricula = ultimoCadastrado.getMatricula();
+				String modificada = matricula.substring(4, matricula.length());
+				int modificadaConvertida = Integer.parseInt(modificada);
+				int digitoMatricula = modificadaConvertida + 1;
+				funcionario.setMatricula(anoAtual+""+digitoMatricula);
+			}
 			
-			
-			funcionario.setEndereco(enderecoProfessor );
-				
 			Professor professorSaved  = professorRepository.save(funcionario);
 			
-			String uploadDir = "funcionario-photos/" + professorSaved.getId();
-		    FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+			if(professorSaved != null) {
+				
+				Endereco enderecoProfessor = enderecoRepository.save(endereco);
+				
+				professorSaved.setEndereco(enderecoProfessor);
+				
+				professorRepository.saveAndFlush(funcionario);
+				
+				System.out.println("enderecoProfessor"+enderecoProfessor);
+				
+				String uploadDir = "funcionario-photos/" + professorSaved.getId();
+				
+			    FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+				
+				attr.addFlashAttribute("aviso","sucesso salvar");
+					
+				return "redirect:/professor/edit-"+funcionario.getId()+"-professor";
+			}
 			
-			attr.addFlashAttribute("aviso","sucesso salvar");
-			
-			return "redirect:/professor/edit-"+funcionario.getId()+"-professor";
-			
+			return "professor/form";
+				
 		} catch (Exception e) {
 			
 			attr.addFlashAttribute("aviso","erro salvar");
 			
-			return "professor/form";		
-		}	
+			return "professor/form";
+		}
 	}
 	
 	@RequestMapping(value = {"/edit-{id}-professor"})
@@ -213,46 +225,101 @@ public class ProfessorController {
 	
 	@RequestMapping(value="/adicionar-{idTurma}-turma-{idProfessor}-professor", method = RequestMethod.GET)
 	public String addTurmas(@PathVariable("idProfessor") Long idProfessor,
-			@PathVariable("idTurma") Long idTurma, ModelMap model) {
+			@PathVariable("idTurma") Long idTurma, ModelMap model, RedirectAttributes attr) {
 		
-		Professor funcionario = professorRepository.getOne(idProfessor);
-		Turma turma = turmaRepository.getOne(idTurma);
-		turma.addProfessor(funcionario);
-		turmaRepository.saveAndFlush(turma);
-		List<Turno> turnos = turnoRepository.findAll();
-		model.addAttribute("turnos", turnos);
-		Turno turno = turnos.get(0);
-		model.addAttribute("turno", turno);
+		try {
+			
+			Professor funcionario = professorRepository.getOne(idProfessor);
+			Turma turma = turmaRepository.getOne(idTurma);
+			turma.addProfessor(funcionario);
+			turmaRepository.saveAndFlush(turma);
+			List<Turno> turnos = turnoRepository.findAll();
+			model.addAttribute("turnos", turnos);
+			Turno turno = turnos.get(0);
+			model.addAttribute("turno", turno);
+			
+			attr.addFlashAttribute("aviso","sucesso salvar");
+		
+			return "redirect:/professor/listar-turmas-"+idProfessor;
+			
+		} catch (Exception e) {
+			
+			attr.addFlashAttribute("aviso","erro salvar");
+			
+			return "redirect:/professor/listar-turmas-"+idProfessor;
+		}
+		
+		
+	}
 	
-		return "redirect:/professor/listar-turmas-"+idProfessor;
+	@RequestMapping(value="/remover-{idTurma}-turma-{idProfessor}-professor", method = RequestMethod.GET)
+	public String removeTurmas(@PathVariable("idProfessor") Long idProfessor,
+			@PathVariable("idTurma") Long idTurma, ModelMap model, RedirectAttributes attr) {
+		
+		try {
+			
+			Professor funcionario = professorRepository.getOne(idProfessor);
+			Turma turma = turmaRepository.getOne(idTurma);
+			turma.removeProfessor(funcionario);
+			turmaRepository.saveAndFlush(turma);
+			List<Turno> turnos = turnoRepository.findAll();
+			model.addAttribute("turnos", turnos);
+			Turno turno = turnos.get(0);
+			model.addAttribute("turno", turno);
+			
+			attr.addFlashAttribute("aviso","sucesso excluir");
+		
+			return "redirect:/professor/listar-turmas-"+idProfessor+"-professor";
+			
+		} catch (Exception e) {
+			
+			attr.addFlashAttribute("aviso","erro excluir");
+			
+			return "redirect:/professor/listar-turmas-"+idProfessor+"-professor";
+		}
+		
+		
 	}
 	
 	@RequestMapping(value="/listar-{idProfessor}-turno-{idTurno}", method = RequestMethod.GET)
 	public String listarTurmasPorTurno(@PathVariable("idProfessor") Long idProfessor,
 			@PathVariable("idTurno") Long idTurno, ModelMap model) {
 		
-		Professor funcionario = professorRepository.getOne(idProfessor);
-		model.addAttribute("funcionario", funcionario);
-		List<Turno> turnos = turnoRepository.findAll();
-		model.addAttribute("turnos", turnos);
-		Turno turno = turnoRepository.getOne(idTurno);
-		model.addAttribute("turno", turno);
-		Set<Turma> turmas = turno.getTurmas();
-		model.addAttribute("turmas", turmas);
+		try {
+			
+			Professor funcionario = professorRepository.getOne(idProfessor);
+			model.addAttribute("funcionario", funcionario);
+			List<Turno> turnos = turnoRepository.findAll();
+			model.addAttribute("turnos", turnos);
+			Turno turno = turnoRepository.getOne(idTurno);
+			model.addAttribute("turno", turno);
+			Set<Turma> turmas = turno.getTurmas();
+			model.addAttribute("turmas", turmas);
+			
+			return "/professor/adicionar-turmas";
+			
+		} catch (Exception e) {
+			return "/professor/adicionar-turmas";
+		}
 		
-		return "/professor/adicionar-turmas";
 	}
 	
 	@RequestMapping(value="/listar-turmas-{id}-professor", method = RequestMethod.GET)
 	public String listarTurmas(@PathVariable("id") Long id, ModelMap model) {
 		
-		Professor funcionario = professorRepository.getOne(id);
-		model.addAttribute("funcionario",funcionario);
-		Set<Turma> turmas = funcionario.getTurmas();
-		model.addAttribute("turmas",turmas);
-	
+		try {
+			Professor funcionario = professorRepository.getOne(id);
+			model.addAttribute("funcionario",funcionario);
+			Set<Turma> turmas = funcionario.getTurmas();
+			model.addAttribute("turmas",turmas);
 		
-		return "/professor/listar-turmas";
+			
+			return "/professor/listar-turmas";
+			
+		} catch (Exception e) {
+			return "/professor/listar-turmas";
+		}
+		
 	}
 	
 	@RequestMapping(value = {"/"})

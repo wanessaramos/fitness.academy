@@ -40,8 +40,6 @@ public class PagamentoController {
 		model.addAttribute("pagamentos", pagamentos);
 		Pagamento pagamento = new Pagamento();
 		model.addAttribute("pagamento", pagamento);
-		
-		System.out.println("p"+ funcionario);
 			
 		return "pagamento/form";
 	}

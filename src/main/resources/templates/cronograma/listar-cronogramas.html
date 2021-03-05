@@ -9,14 +9,13 @@
                             <div th:case="'sucesso salvar'" class="alert alert-success
                                 alert-dismissible fade show" role="alert">Cronograma salvo
                             com sucesso!</div>
-                            <div th:case="'erro salvar'" class="alert alert-danger alertdismissible fade show" role="alert">Erro ao salvar
-                            cronograma.</div>
                             <div th:case="'sucesso excluir'" class="alert alert-success
                                 alert-dismissible fade show" role="alert">Cronograma excluído
                             com sucesso!</div>
-                            <div th:case="'erro excluir'" class="alert alert-
-                            danger alert-dismissible fade show" role="alert">
-                            Erro ao excluir cronograma.</div>
+                            <div th:case="'erro salvar'" class="alert alert-danger alertdismissible fade show" role="alert">Erro ao salvar o
+                            cronograma!</div>
+                            <div th:case="'erro excluir'" class="alert alert-danger alertdismissible fade show" role="alert">Erro ao excluir o
+                            cronograma!</div>
                     </div>
 				</div>
                 <div class="col-md-12">
@@ -61,9 +60,28 @@
                                         <a class="btn btn-dark" href="cronograma/form.html" value="editar cronograma" th:href="@{'/cronograma/edit-'+${cronograma.id}+'-cronograma-'+${aluno.id}+'-aluno'}">
                                             <i class = "icon ion-md-create"> </i>editar
                                         </a>
-                                        <a class="btn btn-danger" id="bt_reset" href="cronograma/form.html" value="excluir cronograma" th:href="@{'/cronograma/delete-'+${cronograma.id}+'-cronograma-'+${aluno.id}+'-aluno'}">
-                                            <i class = "icon ion-md-trash"> </i>excluir
-                                        </a>
+                                         <a class="btn btn-danger" id="bt_reset" data-bs-toggle="modal" th:attr="data-bs-target='#modalExcluir' + ${cronograma.id}"> <i class = "icon ion-md-trash"> </i> excluir </a>
+                                            
+                                            <!-- MODAL -->
+                                            <div class="modal fade" th:attr="id='modalExcluir' + ${cronograma.id}" tabindex="-1">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Confirmar Exclusão</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p th:text="'Tem certeza aque deseja excluir cronograma data início: ' + ${cronograma.data_inicio}+' data fim '+${cronograma.data_fim}+ ' ?'"></p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-dark" data-bs-dismiss="modal"> Não </button>
+                                                            <a class="btn btn-danger" href="#" id="bt_reset" title="deletar aluno"
+                                                               th:href="@{'/cronograma/delete-'+${cronograma.id}+'-cronograma-'+${aluno.id}+'-aluno'}">Sim</a>
+                                                        </div>
+                                                    </div>
+                                                </div>		
+                                            </div>
+						                    <!-- MODAL -->	
                                     </td>
                                 </tr>
                             </tbody>

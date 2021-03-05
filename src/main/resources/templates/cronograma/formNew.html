@@ -7,15 +7,15 @@
                    <div class="col-md-12">
                      <div th:switch="${aviso}">
                             <div th:case="'sucesso salvar'" class="alert alert-success
-                                alert-dismissible fade show" role="alert">Aluno salvo
+                                alert-dismissible fade show" role="alert">Cronograma salvo
                             com sucesso!</div>
                             <div th:case="'sucesso excluir'" class="alert alert-success
-                                alert-dismissible fade show" role="alert">Aluno excluído
+                                alert-dismissible fade show" role="alert">Cronograma excluído
                             com sucesso!</div>
-                            <div th:case="'erro salvar'" class="alert alert-danger alertdismissible fade show" role="alert">Houve ao tentar salvar o
-                            aluno!</div>
-                            <div th:case="'erro excluir'" class="alert alert-danger alertdismissible fade show" role="alert">Houve ao tentar excluir o
-                            aluno!</div>
+                            <div th:case="'erro salvar'" class="alert alert-danger alertdismissible fade show" role="alert">Erro ao salvar o
+                            cronograma!</div>
+                            <div th:case="'erro excluir'" class="alert alert-danger alertdismissible fade show" role="alert">Erro ao excluir o
+                            cronograma!</div>
                     </div>
 				</div>
                     <div class="col-md-12" id="newcronograma">

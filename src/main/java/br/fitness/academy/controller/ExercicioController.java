@@ -39,7 +39,7 @@ public class ExercicioController {
 			return "redirect:/exercicio/edit-"+exercicio.getId()+"-exercicio";
 		} catch (Exception e) {
 			attr.addFlashAttribute("aviso","erro salvar");
-			return "/exercicio/new";
+			return "/exercicio/form";
 		}	
 	}
 	
@@ -56,7 +56,7 @@ public class ExercicioController {
 	@RequestMapping(value={"/update"},  method={RequestMethod.PUT, RequestMethod.GET})
 	public String updateExercicio(@Valid Exercicio exercicio, BindingResult result, ModelMap model,
 			RedirectAttributes attr) {
-
+		
 		try {
 			exercicioRepository.saveAndFlush(exercicio);
 			attr.addFlashAttribute("aviso","sucesso salvar");

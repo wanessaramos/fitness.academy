@@ -23,36 +23,41 @@
                          <h4>Cadastro de Exercício</h4>
                     <hr>
                          <form action="#"  th:action="@{/exercicio/update}" th:object="${exercicio}" >
-                             <div class="col-md-12">
+                             <div class="col-md-12">  
                                  <div class="row">
-                                     <div class="col-md-3">
+                                      <div class="col-md-1">   
+                                        <label for="Id" th:text="Id"></label>
+                                        <input type="text" class="form-control" id="id" 
+                                               th:field="*{id}" readonly="readonly">
+                                     </div>
+                                     <div class="col-md-4">
                                           <label for="nome" th:text="Nome"></label>
                                           <input type="text" class="form-control" th:field="*{nome}" required>
                                      </div>
        
-                                     <div class="col-md-3">
+                                     <div class="col-md-4">
                                              <label for="carga" th:text="Carga"></label>
                                              <input type="text" class="form-control" th:field="*{carga}" required>
                                      </div>
 
-                                     <div class="col-md-2">
+                                     <div class="col-md-1">
                                              <label for="intervalo" th:text="Intervalo"></label>
                                              <input type="text" class="form-control" th:field="*{intervalo}"required>
                                      </div>
 
-                                     <div class="col-md-2">
+                                     <div class="col-md-1">
                                               <label for="repeticoes" th:text="Repetições"></label>
                                               <input type="text" class="form-control"  th:field="*{repeticoes}" required>
                                      </div>
 
-                                     <div class="col-md-2">
+                                     <div class="col-md-1">
                                               <label for="serie" th:text="Séries"></label>
                                               <input type="text" class="form-control" th:field="*{serie}" required>
                                      </div>
                                 
                                     <div class="col-md-12" style="padding-top: 20px">
 
-                                        <input type="submit" value="Enviar" class="btn btn-dark"/>
+                                        <input type="submit" value="Salvar" class="btn btn-dark"/>
                                         <input type="reset" value="Cancelar" id="bt_reset" class="btn btn-danger"/>
 
                                     </div> 

@@ -70,38 +70,53 @@ public class AlunoController {
 			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 		    aluno.setPhotos(fileName);
 			
-			Endereco enderecoAluno = enderecoRepository.save(endereco);
-			
 	 		Calendar calendar = GregorianCalendar.getInstance();
 			int anoAtual = calendar.get(Calendar.YEAR);
 			
 			List<Aluno> alunos = alunoRepository.findAll();
-			Aluno ultimoCadastrado = alunos.get(alunos.size()-1);
-			String matricula = ultimoCadastrado.getMatricula();
-			String modificada = matricula.substring(4, matricula.length());
-			int modificadaConvertida = Integer.parseInt(modificada);
-			int digitoMatricula = modificadaConvertida + 1;
-			aluno.setMatricula(anoAtual+""+digitoMatricula);
 			
-			aluno.setEndereco(enderecoAluno );
-			Aluno alunoSaved  = alunoRepository.save(aluno);
-			String uploadDir = "aluno-photos/" + alunoSaved.getId(); 
-		    FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-			if(aluno.getId() != 0) {
-				Turma turma = turmaRepository.getOne(id_turma);
-				turma.addAluno(aluno);
-				turmaRepository.save(turma);
+			if(alunos.size() == 0) {
+				aluno.setMatricula(anoAtual+""+(alunoRepository.count()+1));
+			}else {
+				Aluno ultimoCadastrado = alunos.get(alunos.size()-1);
+				String matricula = ultimoCadastrado.getMatricula();
+				String modificada = matricula.substring(4, matricula.length());
+				int modificadaConvertida = Integer.parseInt(modificada);
+				int digitoMatricula = modificadaConvertida + 1;
+				aluno.setMatricula(anoAtual+""+digitoMatricula);
 			}
 			
-			attr.addFlashAttribute("aviso","sucesso salvar");
-				
-			return "redirect:/aluno/edit-"+aluno.getId()+"-aluno";
+			Aluno alunoSaved  = alunoRepository.save(aluno);
 			
+			if(alunoSaved != null) {
+				Endereco enderecoAluno = enderecoRepository.save(endereco);
+				
+				alunoSaved.setEndereco(enderecoAluno);
+				
+				//System.out.println("enderecoAluno"+enderecoAluno);
+				
+				String uploadDir = "aluno-photos/" + alunoSaved.getId(); 
+			    FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+				if(aluno.getId() != 0) {
+					Turma turma = turmaRepository.getOne(id_turma);
+					turma.addAluno(aluno);
+					turmaRepository.save(turma);
+				}
+				
+				alunoRepository.saveAndFlush(aluno);
+				
+				attr.addFlashAttribute("aviso","sucesso salvar");
+					
+				return "redirect:/aluno/edit-"+aluno.getId()+"-aluno";
+			}
+			
+			return "aluno/form";
+				
 		} catch (Exception e) {
 			
 			attr.addFlashAttribute("aviso","erro salvar");
 			
-			return "aluno/new";
+			return "aluno/form";
 		}
 			
 	}

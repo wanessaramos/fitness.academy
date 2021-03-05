@@ -20,7 +20,7 @@
                     </div>
 				</div>
                 <div class="col-md-12">
-                    <h4>Cronogramas do Aluno</h4></div>
+                    <h4>Mensalidades do Aluno</h4></div>
                     <hr>
                     <div class="col-md-12" th:replace="fragments/menu-aluno :: menu-aluno"></div>
                     <div class="row" id="formaluno">
@@ -65,9 +65,29 @@
                                         <a class="btn btn-dark" href="mensalidade/form.html" value="editar mensalidade" th:href="@{'/mensalidade/edit-'+${mensalidade.id}+'-mensalidade-'+${aluno.id}+'-aluno'}">
                                             <i class = "icon ion-md-create"> </i>editar
                                         </a>
-                                        <a class="btn btn-danger" id="bt_reset" href="mensalidade/form.html" value="excluir mensalidade" th:href="@{'/mensalidade/delete-'+${mensalidade.id}+'-mensalidade-'+${aluno.id}+'-aluno'}">
-                                            <i class = "icon ion-md-trash"> </i>excluir
-                                        </a>
+                            
+                                        <a class="btn btn-danger" id="bt_reset" data-bs-toggle="modal" th:attr="data-bs-target='#modalExcluir' + ${mensalidade.id}"> <i class = "icon ion-md-trash"> </i> excluir </a>
+                                            
+                                            <!-- MODAL -->
+                                            <div class="modal fade" th:attr="id='modalExcluir' + ${mensalidade.id}" tabindex="-1">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Confirmar Exclusão</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p th:text="'Tem certeza aque deseja excluir mensalidade com vencimento em ' + ${mensalidade.vencimento}+' ?'"></p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-dark" data-bs-dismiss="modal"> Não </button>
+                                                            <a class="btn btn-danger" href="#" id="bt_reset" title="deletar aluno"
+                                                               th:href="@{'/mensalidade/delete-'+${mensalidade.id}+'-mensalidade-'+${aluno.id}+'-aluno'}">Sim</a>
+                                                        </div>
+                                                    </div>
+                                                </div>		
+                                            </div>
+						                    <!-- MODAL -->	
                                     </td>
                                 </tr>
                             </tbody>

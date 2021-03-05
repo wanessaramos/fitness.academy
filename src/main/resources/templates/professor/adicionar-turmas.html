@@ -4,6 +4,18 @@
     <body id="turmas">
          <header th:replace="fragments/nav :: nav"></header> 
              <div class="container">
+                 <div class="col-md-12">
+                     <div th:switch="${aviso}">
+                            <div th:case="'sucesso salvar'" class="alert alert-success
+                                alert-dismissible fade show" role="alert">Turma salva
+                            com sucesso!</div>
+                            <div th:case="'sucesso excluir'" class="alert alert-success
+                                alert-dismissible fade show" role="alert">Turma excluída
+                            com sucesso!</div>
+                            <div th:case="'erro salvar'" class="alert alert-danger alertdismissible fade show" role="alert">Erro ao salvar turma!</div>
+                            <div th:case="'erro excluir'" class="alert alert-danger alertdismissible fade show" role="alert">Erro ao tentar excluir turma!</div>
+                    </div>
+				</div>
                     <div class="col-md-12">
                         <h4>Adicionar Turmas</h4><hr>
                      <div class="col-md-12" th:replace="fragments/menu-professor :: menu-professor"></div>

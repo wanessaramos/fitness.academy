@@ -78,6 +78,10 @@
                                             </div>
                                       </div>
                                       <div class="row">
+                                          <div class="col-md-6">    
+                                              <label for="formFile">Foto Aluno</label>
+                                              <input class="form-control" type="file" id="fileImage" name="fileImage" accept="image/png, image/jpeg">
+                                         </div>
                                           <div class="col-md-3">
                                                 <label for="RG" th:text="RG"></label>
                                                  <input type="text" class="form-control" id="rg" th:field="*{rg}" required  maxlength="20">
@@ -85,23 +89,9 @@
                                             <div class="col-md-3">
                                                 <label for="CPF" th:text="CPF"></label>
                                                 <input type="text" class="form-control" id="cpf" th:field="*{cpf}" maxlength="14" required>
-                                            </div>
-                                          <div class="col-md-3">
-                                                <label for="Login" th:text="Login"></label>
-                                                 <input type="text" class="form-control" id="login" th:field="*{login}" required maxlength="10">
-                                          </div>
-                                            <div class="col-md-3">
-                                                <label for="Senha" th:text="Senha"></label>
-                                                <input type="text" class="form-control" id="senha" th:field="*{senha}" required maxlength="10">
-                                            </div>
+                                            </div> 
                                     </div>
-                                    <div class="row">   
-                                        <div class="mb-3">    
-                                          <label for="formFile" class="form-label">Foto Aluno</label>
-                                          <input class="form-control" type="file" id="fileImage" name="fileImage" accept="image/png, image/jpeg">
-                                        </div>
-                                    </div>
-                                    <div class="row">
+                                    <div class="row" style="padding-top: 20px">
                                         <img id="thumbnail" alt="image preview"style="width:150px"/>
                                     </div>
                                     <div class="row">
@@ -189,6 +179,7 @@
     };
 
     </script>
+-->
     </body>
 </html>
 

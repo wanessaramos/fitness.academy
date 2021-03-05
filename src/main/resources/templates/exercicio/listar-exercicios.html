@@ -4,10 +4,25 @@
     <body>
        <header th:replace="fragments/nav :: nav"></header> 
              <div class="container">
+                 <div th:switch="${aviso}">
+                            <div th:case="'sucesso salvar'" class="alert alert-success
+                                alert-dismissible fade show" role="alert">Exercício salvo
+                            com sucesso!</div>
+                            <div th:case="'erro salvar'" class="alert alert-danger alertdismissible fade show" role="alert">Erro ao salvar
+                            exercício.</div>
+                            <div th:case="'sucesso excluir'" class="alert alert-success
+                                alert-dismissible fade show" role="alert">Exercício excluído
+                            com sucesso!</div>
+                            <div th:case="'erro excluir'" class="alert alert-
+                            danger alert-dismissible fade show" role="alert">
+                            Erro ao excluir exercício.</div>
+                    </div>
                 <div class="col-md-12">
                      <h4>Exercicios</h4>
                     <hr>
 				</div>
+                  <div th:if="${#lists.isEmpty(exercicios) == true}" class="alert alert-dark
+                        alert-dismissible fade show" role="alert">Nenhum exercício cadastrado!</div>
                 <div class="container">
                     <div class="col-md-12">
                             <table class=" table table-striped"  th:unless="${#lists.isEmpty(exercicios)}">
@@ -27,15 +42,36 @@
                                            th:href="@{'/exercicio/edit-'+${exercicios.id}+'-exercicio'}">
                                         <i class = "icon ion-md-create"></i> editar
                                          </a>
-                                        <a class="btn btn-danger" id="bt_reset" href="#"  title="deletar exercicio"
-                                           th:href="@{'/exercicio/delete-'+${exercicios.id}+'-exercicio'}">
-                                            <i class = "icon ion-md-trash"></i> excluir
-                                     </a>
+                                            <a class="btn btn-danger" id="bt_reset" data-bs-toggle="modal" th:attr="data-bs-target='#modalExcluir' + ${exercicios.id}"> <i class = "icon ion-md-trash"> </i> excluir </a>
+                                            
+                                            <!-- MODAL -->
+                                            <div class="modal fade" th:attr="id='modalExcluir' + ${exercicios.id}" tabindex="-1">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Confirmar Exclusão</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p th:text="'Tem certeza aque deseja excluir ' + ${exercicios.nome}+ ' ?'"></p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-dark" data-bs-dismiss="modal"> Não </button>
+                                                            <a class="btn btn-danger" href="#" id="bt_reset" title="deletar aluno"
+                                                               th:href="@{'/exercicio/delete-'+${exercicios.id}+'-exercicio'}">Sim</a>
+                                                        </div>
+                                                    </div>
+                                                </div>		
+                                            </div>
+						                    <!-- MODAL -->		
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
                     </div>
                 </div>
-            </div>    
+            </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     </body>
 </html>
