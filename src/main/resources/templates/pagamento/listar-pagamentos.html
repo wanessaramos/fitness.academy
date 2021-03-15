@@ -62,10 +62,10 @@
                                     <td th:text="${pagamento.status}" th:style="|${pagamento.status == 'pendente' ? 'color: red;' : 'color: green;'}|"></td>
                                     <td th:text="${pagamento.valor}"></td>
                                     <td>
-                                        <a class="btn btn-dark" href="pagamento/form.html" value="editar mensalidade" th:href="@{'/pagamento/edit-'+${pagamento.id}+'-pagamento-'+${funcionario.id}+'-funcionario'}">
+                                        <a class="btn btn-dark" href="pagamento/form.html" value="editar mensalidade" th:href="@{'/pagamento/edit-'+${pagamento.id}+'-pagamento-'+${funcionario.id}+'-funcionario'}" sec:authorize="hasRole('ROLE_ADMIN')">
                                             <i class = "icon ion-md-create"> </i>editar
                                         </a>
-                                         <a class="btn btn-danger" id="bt_reset" data-bs-toggle="modal" th:attr="data-bs-target='#modalExcluir' + ${pagamento.id}"> <i class = "icon ion-md-trash"> </i> excluir </a>
+                                         <a class="btn btn-danger" id="bt_reset" data-bs-toggle="modal" th:attr="data-bs-target='#modalExcluir' + ${pagamento.id}" sec:authorize="hasRole('ROLE_ADMIN')"> <i class = "icon ion-md-trash"> </i> excluir </a>
                                             
                                             <!-- MODAL -->
                                             <div class="modal fade" th:attr="id='modalExcluir' + ${pagamento.id}" tabindex="-1">

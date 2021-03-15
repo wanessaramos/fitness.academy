@@ -52,7 +52,7 @@
                                         <td th:text="${num.count}"></td>
                                         <td th:text="${turmas.nome}"></td>
                                         <td>
-                                            <a class="btn btn-danger" id="bt_reset" data-bs-toggle="modal" th:attr="data-bs-target='#modalExcluir' + ${turmas.id}"> <i class = "icon ion-md-trash"> </i> </a>
+                                            <a class="btn btn-danger" sec:authorize="hasRole('ROLE_ADMIN')" id="bt_reset" data-bs-toggle="modal" th:attr="data-bs-target='#modalExcluir' + ${turmas.id}"> <i class = "icon ion-md-trash"> </i> </a>
                                             
                                             <!-- MODAL -->
                                             <div class="modal fade" th:attr="id='modalExcluir' + ${turmas.id}" tabindex="-1">

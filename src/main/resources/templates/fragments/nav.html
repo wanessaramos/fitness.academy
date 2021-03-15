@@ -23,8 +23,8 @@
                         Aluno
                       </a>
                       <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="aluno/form.html" th:href="@{/aluno/new}">Cadastrar</a></li>
-                        <li><a class="dropdown-item" href="aluno/listar-alunos.html" th:href="@{/aluno/listar-alunos}">Listar</a></li>
+                        <li><a class="dropdown-item" href="aluno/form.html" th:href="@{/aluno/new}" sec:authorize="hasRole('ROLE_ADMIN')">Cadastrar</a></li>
+                        <li><a class="dropdown-item" href="aluno/listar-alunos.html" th:href="@{/aluno/listar-alunos}" sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_PROFESSOR')">Listar</a></li>
                       </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -32,8 +32,8 @@
                         Professor
                       </a>
                       <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="professor/form.html" th:href="@{/professor/new}">Cadastrar</a></li>
-                        <li><a class="dropdown-item" href="professor/listar-professores.html" th:href="@{/professor/listar-professores}">Listar</a></li>
+                        <li><a class="dropdown-item" href="professor/form.html" th:href="@{/professor/new}" sec:authorize="hasRole('ROLE_ADMIN')">Cadastrar</a></li>
+                        <li><a class="dropdown-item" href="professor/listar-professores.html" th:href="@{/professor/listar-professores}" sec:authorize="hasRole('ROLE_ADMIN')">Listar</a></li>
                       </ul>
                     </li>
                   <li class="nav-item dropdown">
@@ -41,8 +41,8 @@
                         Turma
                       </a>
                       <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="turma/form.html" th:href="@{/turma/new}">Cadastrar</a></li>
-                        <li><a class="dropdown-item" href="turma/listar-turmas.html" th:href="@{/turma/listar-turmas}">Listar</a></li>
+                        <li><a class="dropdown-item" href="turma/form.html" th:href="@{/turma/new}" sec:authorize="hasRole('ROLE_ADMIN')">Cadastrar</a></li>
+                        <li><a class="dropdown-item" href="turma/listar-turmas.html" th:href="@{/turma/listar-turmas}" sec:authorize="hasRole('ROLE_ADMIN')">Listar</a></li>
                       </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -50,13 +50,13 @@
                         Exercicio
                       </a>
                       <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="exercicio/form.html" th:href="@{/exercicio/new}">Cadastrar</a></li>
-                        <li><a class="dropdown-item" href="exercicio/listar-exercicios.html" th:href="@{/exercicio/listar-exercicios}">Listar</a></li>
+                        <li><a class="dropdown-item" href="exercicio/form.html" th:href="@{/exercicio/new}" sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_PROFESSOR')">Cadastrar</a></li>
+                        <li><a class="dropdown-item" href="exercicio/listar-exercicios.html" th:href="@{/exercicio/listar-exercicios}" sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_PROFESSOR')">Listar</a></li>
                       </ul>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" th:href="@{/listar-usuarios}" 
-                           >Usuarios</a>
+                           sec:authorize="hasRole('ROLE_ADMIN')">Usuarios</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" th:href="@{/logout}">Sair</a>

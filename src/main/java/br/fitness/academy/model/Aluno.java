@@ -30,6 +30,9 @@ public class Aluno {
 		
 		@Column(nullable = true, length = 64)
 		private String photos;
+		
+		@Column(nullable=false)
+		private String email;
 		 
 		@OneToOne(cascade = CascadeType.REMOVE,  orphanRemoval = true)
 		private Endereco endereco;
@@ -48,7 +51,7 @@ public class Aluno {
 			// TODO Auto-generated constructor stub
 		}
 		
-		public Aluno(String matricula, String nome, String cpf, String rg, String telefone,
+		public Aluno(String matricula, String nome, String cpf, String rg, String telefone, String email,
 				Endereco endereco) {
 			super();
 			this.matricula = matricula;
@@ -56,6 +59,7 @@ public class Aluno {
 			this.cpf = cpf;
 			this.rg = rg;
 			this.telefone = telefone;
+			this.email = email;
 			this.endereco = endereco;
 		}
 
@@ -123,6 +127,14 @@ public class Aluno {
 			this.telefone = telefone;
 		}
 		
+		public String getEmail() {
+			return email;
+		}
+
+		public void setEmail(String email) {
+			this.email = email;
+		}
+
 		public String getPhotos() {
 			return photos;
 		}
@@ -260,9 +272,9 @@ public class Aluno {
 
 		@Override
 		public String toString() {
-			return "Aluno [matricula=" + matricula + ", nome=" + nome + ", cpf=" + cpf + ", rg=" + rg + ", telefone="
-					+ telefone + ", photos=" + photos + ", endereco=" + endereco + ", mensalidades=" + mensalidades
-					+ ", cronogramas=" + cronogramas + "]";
+			return "Aluno [id=" + id + ", matricula=" + matricula + ", nome=" + nome + ", cpf=" + cpf + ", rg=" + rg
+					+ ", telefone=" + telefone + ", photos=" + photos + ", email=" + email + ", endereco=" + endereco
+					+ ", mensalidades=" + mensalidades + ", cronogramas=" + cronogramas + "]";
 		}
-		
+	
 }

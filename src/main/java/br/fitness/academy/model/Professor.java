@@ -21,17 +21,19 @@ public class Professor extends Funcionario{
 		this.turmas = turmas;
 	}
 	
-	public Professor(String matricula, String nome, String telefone, String rg, String cpf, double salario,
-			Endereco endereco) {
-		super(matricula, nome, telefone, rg, cpf, salario, endereco);
-		this.matricula = matricula;
-		this.nome = nome;
-		this.telefone = telefone;
-		this.rg = rg;
-		this.cpf = cpf;
-		this.salario = salario;
-		this.endereco = endereco;
-		
+	
+	public Professor(String matricula, String nome, String telefone, String rg, String cpf, String email,
+			double salario) {
+		super(matricula, nome, telefone, rg, cpf, email, salario);
+		// TODO Auto-generated constructor stub
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getMatricula() {

@@ -79,8 +79,8 @@
                                       </div>
                                       <div class="row">
                                           <div class="col-md-6">    
-                                              <label for="formFile">Foto Aluno</label>
-                                              <input class="form-control" type="file" id="fileImage" name="fileImage" accept="image/png, image/jpeg">
+                                              <label for="email">Email</label>
+                                               <input type="text" class="form-control" id="email" th:field="*{email}" required/>
                                          </div>
                                           <div class="col-md-3">
                                                 <label for="RG" th:text="RG"></label>
@@ -91,9 +91,18 @@
                                                 <input type="text" class="form-control" id="cpf" th:field="*{cpf}" maxlength="14" required>
                                             </div> 
                                     </div>
-                                    <div class="row" style="padding-top: 20px">
-                                        <img id="thumbnail" alt="image preview"style="width:150px"/>
+                                    <div class="row" >
+                                        <div class="col-md-12">    
+                                              <label for="formFile">Foto Aluno</label>
+                                              <input class="form-control" type="file" id="fileImage" name="fileImage" accept="image/png, image/jpeg">
+                                         </div>
+                                        
                                     </div>
+                                    <div class="row" style="padding-top: 20px">
+                                            <div class="col-md-6"> 
+                                                <img id="thumbnail" alt="image preview"style="width:150px"/>
+                                            </div>
+                                        </div>
                                     <div class="row">
                                         <div class="col-md-6" style="padding-top: 20px">
                                         <input type="submit" value="Salvar" class="btn btn-dark"/>

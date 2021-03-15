@@ -27,6 +27,9 @@ public abstract class Funcionario {
 		@Column(nullable=false,length=14)
 		protected  String cpf;
 		
+		@Column(nullable=false)
+		protected String email;
+		
 		@Column(nullable = true, length = 64)
 		protected String photos;
 		
@@ -44,15 +47,16 @@ public abstract class Funcionario {
 			super();
 		}
 		
-		public Funcionario(String matricula, String nome, String telefone, String rg, String cpf, double salario,Endereco endereco) {
+		public Funcionario(String matricula, String nome, String telefone, String rg, String cpf, String email,
+				double salario) {
 			super();
 			this.matricula = matricula;
 			this.nome = nome;
 			this.telefone = telefone;
 			this.rg = rg;
 			this.cpf = cpf;
+			this.email = email;
 			this.salario = salario;
-			this.endereco = endereco;
 		}
 
 		public String getMatricula() {
@@ -67,7 +71,6 @@ public abstract class Funcionario {
 		public long getId() {
 			return id;
 		}
-
 
 		public String getNome() {
 			return nome;
@@ -105,6 +108,14 @@ public abstract class Funcionario {
 			this.id = id;
 		}
 		
+		public String getEmail() {
+			return email;
+		}
+
+		public void setEmail(String email) {
+			this.email = email;
+		}
+
 		public String getPhotos() {
 			return photos;
 		}

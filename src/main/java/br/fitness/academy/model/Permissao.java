@@ -25,7 +25,7 @@ public class Permissao {
 		// TODO Auto-generated constructor stub
 	}
 	
-	@ManyToMany(mappedBy="permissoes", cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy="permissoes")
 	private Collection<Usuario> usuarios;
 	
 	public Permissao(String nome) {

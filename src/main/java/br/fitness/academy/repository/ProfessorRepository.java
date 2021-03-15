@@ -7,4 +7,5 @@ import br.fitness.academy.model.Professor;
 public interface ProfessorRepository extends JpaRepository<Professor,Long>{
 	public List<Professor> findByNome(String nome);
 	public Professor findByMatricula(String matricula);
+	public Professor findByEmail(String email);
 }

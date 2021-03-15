@@ -2,6 +2,8 @@ package br.fitness.academy.controller;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -21,6 +23,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import br.fitness.academy.model.Aluno;
+import br.fitness.academy.model.Cronograma;
+import br.fitness.academy.model.Endereco;
 import br.fitness.academy.model.Role;
 import br.fitness.academy.model.SenhaTemporaria;
 import br.fitness.academy.model.Usuario;
@@ -45,7 +51,20 @@ public class SecurityController {
 	@Autowired private JavaMailSender mailSender;
 	
 	@RequestMapping(value = {"/"})
-	public String index() {
+	public String index(ModelMap model) {
+		String userName = getUsuarioLogado();
+		Usuario usuario = usuarioRepository.findByLogin(userName);
+		/*if() {
+			
+		}
+		Aluno aluno = alunoRepository.getOne(id);
+		model.addAttribute("aluno", aluno);
+		Set<Cronograma> cronogramas = aluno.getCronogramas();
+		model.addAttribute("cronogramas", cronogramas);
+		Cronograma cronograma = new Cronograma();
+		model.addAttribute("cronograma", cronograma);*/
+		
+		
 		return "/index";
 	}
 	
@@ -60,13 +79,12 @@ public class SecurityController {
 	
 	
 	@RequestMapping(value = {"/login"},  method = { RequestMethod.POST, RequestMethod.GET})
-	public String login(ModelMap model,RedirectAttributes attr) {
+	public String login(ModelMap model) {
 		String userName = getUsuarioLogado();
 		Usuario usuario = usuarioRepository.findByLogin(userName);
 		if(usuario == null) {
 			return "/login";
 		}else {
-			attr.addFlashAttribute("nome",usuario.getNome());
 			return "redirect:/";
 		}
 		
@@ -208,33 +226,8 @@ public class SecurityController {
 			}
 		
 			attr.addFlashAttribute("mensagem","Erro ao tentar modificar senha !");
-	/*	if(verificador.equals("ok")) {
-			return "/login";
-		}else {
-			attr.addFlashAttribute("mensagem",verificador);	*/
 		}
-		
-		/*Usuario user = usuarioRepository.findByLogin(username);
-		if(user != null) {
-			SenhaTemporaria senhaTemp = senhaTemporariaRepository.findByUsuario(user);
-			if(senhaTemp != null) {
-				System.out.println(senhaTemp.getSenha()+" "+tempsenha);
-				if(senhaTemp.getSenha().equals(tempsenha)) {
-					autenticacaoService.modificarSenha(user, newsenha);
-					
-					return "/login";
-					
-				}else {
-					
-					attr.addFlashAttribute("mensagem","Erro senha Temporária!");	
-				}
-			}
-			
-		}else {
-			attr.addFlashAttribute("mensagem","Verifique seu e-mail");
-		}*/
 		return "/redefinirSenha";
-		
 	}
 	
 }

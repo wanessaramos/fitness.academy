@@ -9,5 +9,6 @@ import br.fitness.academy.model.Aluno;
 public interface AlunoRepository extends JpaRepository<Aluno,Long>{	
 	public List<Aluno> findByNome(String nome);
 	public Aluno findByMatricula(String matricula);
+	public Aluno findByEmail(String email);
 }
 

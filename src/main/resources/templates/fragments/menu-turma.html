@@ -12,11 +12,11 @@
                                 <a href="turma/formUpdate.html" title="perfil" id="perfil-turma" th:href="@{'/turma/edit-'+${turma.id}+'-turma'}"><i class = "icon ion-md-people"></i> Turma</a>
                             </li>
                             <li>
-                                <a href="turma/listar-professores.html" title="listar professores" id="lista-professores"
+                                <a href="turma/listar-professores.html" sec:authorize="hasRole('ROLE_ADMIN')" title="listar professores" id="lista-professores"
                                    th:href="@{'/turma/listar-professores-'+${turma.id}+'-turma'}"><i class = "icon ion-md-contacts"></i> Professores</a>
                             </li>
                             <li>
-                                <a href="turma/listar-alunos.html" title="listar alunos" id="lista-alunos" 
+                                <a href="turma/listar-alunos.html" sec:authorize="hasRole('ROLE_ADMIN')" title="listar alunos" id="lista-alunos" 
                                    th:href="@{'/turma/listar-alunos-'+${turma.id}+'-turma'}"><i class = "icon ion-md-contacts"></i> Alunos</a>
                             </li>
                         </ul>

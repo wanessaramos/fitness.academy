@@ -2,9 +2,9 @@ package br.fitness.academy.model;
 
 public enum Role {
 
-	ROLE_PROFESSOR("professor"),
-	ROLE_USUARIO("usuario"),
-	ROLE_ADMIN("admin");
+	ROLE_PROFESSOR("ROLE_PROFESSOR"),
+	ROLE_USUARIO("ROLE_USUARIO"),
+	ROLE_ADMIN("ROLE_ADMIN");
 
 	private final String nome;
 	

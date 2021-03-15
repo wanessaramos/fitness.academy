@@ -26,6 +26,7 @@
                                         <th scope="col">#</th>
                                         <th scope="col">Matrícula</th>
                                         <th scope="col">Nome</th>
+                                        <th scope="col">Email</th>
                                         <th scope="col">Opções</th>
                                     </tr>
                                 </thead>
@@ -34,12 +35,13 @@
                                         <td th:text="${num.count}"></td>
                                         <td th:text="${alunos.matricula}"></td>
                                         <td th:text="${alunos.nome}"></td>
+                                        <td th:text="${alunos.email}"></td>
                                         <td>
                                         <a class="btn btn-dark" href="#" title="editar aluno"
                                            th:href="@{'/aluno/edit-'+${alunos.id}+'-aluno'}">
                                          <i class = "icon ion-md-create"> </i>editar
                                          </a>
-                                         <a class="btn btn-danger" id="bt_reset" data-bs-toggle="modal" th:attr="data-bs-target='#modalExcluir' + ${alunos.id}"> <i class = "icon ion-md-trash"> </i> excluir </a>
+                                         <a class="btn btn-danger" id="bt_reset" data-bs-toggle="modal" th:attr="data-bs-target='#modalExcluir' + ${alunos.id}" sec:authorize="hasRole('ROLE_ADMIN')"> <i class = "icon ion-md-trash"> </i> excluir </a>
                                             
                                             <!-- MODAL -->
                                             <div class="modal fade" th:attr="id='modalExcluir' + ${alunos.id}" tabindex="-1">

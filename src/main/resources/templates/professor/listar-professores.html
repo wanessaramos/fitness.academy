@@ -26,6 +26,7 @@
                                         <th scope="col">#</th>
                                         <th scope="col">Matrícula</th>
                                         <th scope="col">Nome</th>
+                                        <th scope="col">Email</th>
                                         <th scope="col">Opções</th>
                                     </tr>
                                 </thead>
@@ -34,6 +35,7 @@
                                         <td th:text="${num.count}"></td>
                                         <td th:text="${professores.matricula}"></td>
                                         <td th:text="${professores.nome}"></td>
+                                        <td th:text="${professores.email}"></td>
                                         <td>
                                         <a class="btn btn-dark" href="#" title="editar professor"
                                            th:href="@{'/professor/edit-'+${professores.id}+'-professor'}">
