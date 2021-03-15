@@ -24,26 +24,18 @@ import br.fitness.academy.repository.*;
 import br.fitness.academy.service.FileUploadUtil;
 import br.fitness.academy.service.ClearFolder;
 
-
 @Controller
 @RequestMapping("/aluno")
 public class AlunoController {
 	
 	@Autowired
-	AlunoRepository alunoRepository;
+	private AlunoRepository alunoRepository;
 	
 	@Autowired
-	CronogramaRepository cronogramaRepository;
+	private TurmaRepository turmaRepository;
 	
 	@Autowired
-	TurmaRepository turmaRepository;
-	
-	@Autowired
-	EnderecoRepository enderecoRepository;
-	
-	@Autowired
-	ExercicioRepository exercicioRepository;
-	
+	private EnderecoRepository enderecoRepository;
 	
 	@RequestMapping(value = {"/new"})
 	public String newAluno(ModelMap model) {

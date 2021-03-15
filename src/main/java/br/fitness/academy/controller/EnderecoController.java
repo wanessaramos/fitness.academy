@@ -16,7 +16,7 @@ import br.fitness.academy.repository.EnderecoRepository;
 public class EnderecoController {
 	
 	@Autowired
-	EnderecoRepository enderecoRepository;
+	private EnderecoRepository enderecoRepository;
 	
 	@RequestMapping(value = {"/new"}, method = RequestMethod.GET)
 	public String newEndereco(ModelMap model) {

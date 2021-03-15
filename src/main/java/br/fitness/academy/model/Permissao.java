@@ -1,9 +1,7 @@
 package br.fitness.academy.model;
 
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,11 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
-public class Permissao implements UserDetails{
+public class Permissao {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,15 +20,17 @@ public class Permissao implements UserDetails{
 	@Column(nullable=false,length=100)
 	private String nome;
 	
-	@ManyToMany(mappedBy="permissoes")
-	private Set<Usuario> usuarios  = new HashSet<>();
-	
-	@ManyToMany(mappedBy="permissoes")
-	private Set<Grupo> grupos  = new HashSet<>();
-	
 	public Permissao() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	
+	@ManyToMany(mappedBy="permissoes", cascade = CascadeType.ALL)
+	private Collection<Usuario> usuarios;
+	
+	public Permissao(String nome) {
+		super();
+		this.nome = nome;
 	}
 
 	public long getId() {
@@ -51,62 +49,9 @@ public class Permissao implements UserDetails{
 		this.nome = nome;
 	}
 
-	public Set<Usuario> getUsuarios() {
-		return usuarios;
-	}
-
-	public void setUsuarios(Set<Usuario> usuarios) {
-		this.usuarios = usuarios;
-	}
-
-	public Set<Grupo> getGrupos() {
-		return grupos;
-	}
-
-	public void setGrupos(Set<Grupo> grupos) {
-		this.grupos = grupos;
-	}
-
 	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getPassword() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getUsername() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return false;
+	public String toString() {
+		return "Permissao [id=" + id + ", nome=" + nome + "]";
 	}
 	
 }

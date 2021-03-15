@@ -10,12 +10,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import br.fitness.academy.model.Aluno;
 import br.fitness.academy.model.Professor;
 import br.fitness.academy.model.Turma;
 import br.fitness.academy.model.Turno;
-import br.fitness.academy.repository.AlunoRepository;
 import br.fitness.academy.repository.TurmaRepository;
 import br.fitness.academy.repository.TurnoRepository;
 
@@ -24,13 +22,11 @@ import br.fitness.academy.repository.TurnoRepository;
 public class TurmaController {
 
 	@Autowired
-	TurmaRepository turmaRepository;
+	private TurmaRepository turmaRepository;
+	
 	
 	@Autowired
-	AlunoRepository alunoRepository;
-	
-	@Autowired
-	TurnoRepository turnoRepository;
+	private TurnoRepository turnoRepository;
 	
 	@RequestMapping(value = {"/new"}, method=RequestMethod.GET)
 	public String newTurma(ModelMap model) {

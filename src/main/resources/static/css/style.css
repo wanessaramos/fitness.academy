@@ -15,7 +15,7 @@
 }
 
 img {
-  background: url("../images/user.jpg");
+  background: url("../image/user.jpg");
   background-repeat: no-repeat;
   height: 100%;
   width: 100%;
@@ -132,6 +132,21 @@ body#alunos a#lista-alunos {
 
 #link-senha {
   width: 375px;
-  text-decoration: none;
   color: #333;
+}
+
+#roles{
+    display: inline-block;
+    padding-right: 35px;
+}
+
+input[type="radio"]:checked{
+    background-color: #e85d04;
+    border-color: red;
+}
+
+.form-check-label:focus {
+  border-color: inherit;
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }

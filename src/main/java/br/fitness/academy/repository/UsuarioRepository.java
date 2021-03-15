@@ -6,4 +6,5 @@ import br.fitness.academy.model.Usuario;
 public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
 	
 	Usuario findByLogin(String login);
+	
 }

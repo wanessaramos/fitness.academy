@@ -4,37 +4,30 @@
     <body id="turmas">
             <div class="container">
                 <div class="row justify-content-center">
+                        <div class="col-md-12">
+                            <div class="alert alert-error" th:if=${param.error}>Login ou senha invalido!</div>
+                            <div class="alert alert-error" th:text=${mensagem} th:if=${mensagem}></div>
+                        </div> 
                         <div class="col-md-12" id="entrar">
                             <div class="col-md-12" style="text-align: center; font-size: 30px;">
                                 <i class = "icon ion-md-fitness" style="font-size:50px"> </i>
                                 <p>Academy Fitness</p>
                             </div>
-                            <form method="post" th:object="${funcionario}">
+                            <form method="post" th:action="@{/recuperarSenha}">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <label for="email" class="form-label">Email</label>
-                                        <input type="email" class="form-control" id="email" required>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <label for="senha" class="form-label">Senha</label>
-                                    <input type="password" class="form-control" id="senha" required>
+                                        <label for="login" class="form-label">Email</label>
+                                        <input type="email" class="form-control" name="email">
                                     </div>
                                 </div>
                                 <div class="col-md-12" style="padding-top: 20px;">
-                                    <a style="width: 100%;" href="#" class="btn btn-dark">Entrar</a>
+                                     <input type="submit" style="width: 100%;" value="Enviar" class="btn btn-dark"/>
+                                    <a class="btn btn-danger" href="#" id="bt_reset" title="deletar aluno"
+                                th:href="@{/login}" style="width: 100%; margin-top: 10px;">Cancelar</a>
                                 </div>
-                            </form>
-                            <form th:action="@{/professor/email-send}">
-                                <p style="text-align: center;  padding-top: 20px;">
-                                    <a id="link-senha" href="#">Esqueci minha senha</a>
-                                </p>
-                              </form>
-                          </div>     
-                </div>
-                    
-                </div>
+                            </form>  
+                    </div>     
+                </div>     
             </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>

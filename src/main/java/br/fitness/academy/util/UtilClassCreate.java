@@ -1,6 +1,7 @@
 package br.fitness.academy.util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,8 @@ import br.fitness.academy.model.*;
 import br.fitness.academy.repository.*;
 
 @Component
-public class createDataTurnos {
+public class UtilClassCreate {
+	
 	@Autowired
 	TurnoRepository turnoRepository;
 

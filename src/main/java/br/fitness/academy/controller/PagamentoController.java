@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.fitness.academy.model.Funcionario;
 import br.fitness.academy.model.Pagamento;
-import br.fitness.academy.repository.AlunoRepository;
 import br.fitness.academy.repository.FuncionarioRepository;
 import br.fitness.academy.repository.PagamentoRepository;
 
@@ -22,13 +21,10 @@ import br.fitness.academy.repository.PagamentoRepository;
 public class PagamentoController {
 
 	@Autowired
-	AlunoRepository alunoRepository;
+	private PagamentoRepository pagamentoRepository;
 	
 	@Autowired
-	PagamentoRepository pagamentoRepository;
-	
-	@Autowired
-	FuncionarioRepository funcionarioRepository;
+	private FuncionarioRepository funcionarioRepository;
 	
 	@RequestMapping(value = {"/funcionario-{id}-new-pagamento"})
 	public String newPagamentoFuncionario(@PathVariable("id") Long id, ModelMap model) {

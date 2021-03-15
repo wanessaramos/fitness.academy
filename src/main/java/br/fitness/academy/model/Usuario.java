@@ -1,20 +1,23 @@
 package br.fitness.academy.model;
 
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Usuario implements UserDetails{
+public class Usuario {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,23 +26,30 @@ public class Usuario implements UserDetails{
 	@Column(nullable=false,length=100)
 	private String nome;
 	
-	@Column(nullable=false,length=100)
+	@Column(nullable=false)
 	private String login;
 	
-	@Column(nullable=false,length=100)
+	@Column(nullable=false,length=60)
 	private String senha;
 	
-	@ManyToMany
-	private Set<Permissao> permissoes  = new HashSet<>();
+	@JsonIgnore
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name="usuario_permissao",
+	joinColumns = {
+			@JoinColumn(name = "id_usuario", referencedColumnName = "id")},
+	inverseJoinColumns = {
+			@JoinColumn(name = "id_permissao", referencedColumnName = "id")})
+	private Collection<Permissao> permissoes;
 	
-	@ManyToMany
-	private Set<Grupo> grupos  = new HashSet<>();
-
+	@Column()
+	@Enumerated(EnumType.STRING)
+	private Role role;
+	
 	public Usuario() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	public long getId() {
 		return id;
 	}
@@ -72,62 +82,43 @@ public class Usuario implements UserDetails{
 		this.senha = senha;
 	}
 
-	public Set<Permissao> getPermissoes() {
+	public Collection<Permissao> getPermissoes() {
 		return permissoes;
 	}
 
-	public void setPermissoes(Set<Permissao> permissoes) {
+	public void setPermissoes(Collection<Permissao> permissoes) {
 		this.permissoes = permissoes;
 	}
-
-	public Set<Grupo> getGrupos() {
-		return grupos;
+	
+	public Role getRole() {
+		return role;
 	}
 
-	public void setGrupos(Set<Grupo> grupos) {
-		this.grupos = grupos;
-	}
-
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getPassword() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getUsername() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return false;
+	public void setRole(Role role) {
+		this.role = role;
 	}
 	
+	public boolean addPermissao(Permissao  permissao) {
+		if(permissoes.contains(permissao)) {
+			return false;
+		}else {
+			permissoes.add(permissao);
+			return true;
+		}
+	}
+	
+	public boolean removePermissao(Permissao  permissao) {
+		if(permissoes.contains(permissao)) {
+			permissoes.remove(permissao);
+			return true;
+		}else {
+			return false;
+		}
+	}
+
+	@Override
+	public String toString() {
+		return "Usuario [id=" + id + ", nome=" + nome + ", login=" + login + ", senha=" + senha + ", permissoes="
+				+ permissoes + ", role=" + role + "]";
+	}
 }

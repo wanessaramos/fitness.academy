@@ -27,7 +27,6 @@ import br.fitness.academy.model.Professor;
 import br.fitness.academy.model.Turma;
 import br.fitness.academy.model.Turno;
 import br.fitness.academy.repository.EnderecoRepository;
-import br.fitness.academy.repository.FuncionarioRepository;
 import br.fitness.academy.repository.ProfessorRepository;
 import br.fitness.academy.repository.TurmaRepository;
 import br.fitness.academy.repository.TurnoRepository;
@@ -38,19 +37,16 @@ import br.fitness.academy.service.FileUploadUtil;
 @RequestMapping("/professor")
 public class ProfessorController {
 	@Autowired
-	ProfessorRepository professorRepository;
+	private ProfessorRepository professorRepository;
 	
 	@Autowired
-	EnderecoRepository enderecoRepository;
+	private EnderecoRepository enderecoRepository;
 	
 	@Autowired
-	TurmaRepository turmaRepository;
+	private TurmaRepository turmaRepository;
 	
 	@Autowired
-	FuncionarioRepository funcionarioRepository;
-	
-	@Autowired
-	TurnoRepository turnoRepository;
+	private TurnoRepository turnoRepository;
 	
 	@Autowired private JavaMailSender mailSender;
 	
@@ -331,7 +327,7 @@ public class ProfessorController {
 		return "professor/index";
 	}
 	
-	@RequestMapping(value = {"/redefinir-senha"})
+	@RequestMapping(value = {"/redefinirSenha"})
 	public String redefinirSenha(ModelMap model) {
 		
 		Professor funcionario = new Professor();

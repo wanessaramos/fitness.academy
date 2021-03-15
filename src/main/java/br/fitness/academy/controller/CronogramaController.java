@@ -22,13 +22,13 @@ import br.fitness.academy.repository.ExercicioRepository;
 public class CronogramaController {
 	
 	@Autowired
-	CronogramaRepository cronogramaRepository;
+	private CronogramaRepository cronogramaRepository;
 	
 	@Autowired
-	ExercicioRepository exercicioRepository;
+	private ExercicioRepository exercicioRepository;
 	
 	@Autowired
-	AlunoRepository alunoRepository;
+	private AlunoRepository alunoRepository;
 	
 	@RequestMapping(value = {"/new"}, method = RequestMethod.GET)
 	public String newCronograma(@Valid @ModelAttribute Aluno aluno,

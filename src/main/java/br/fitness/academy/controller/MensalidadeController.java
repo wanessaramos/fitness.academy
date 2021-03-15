@@ -21,10 +21,10 @@ import br.fitness.academy.repository.MensalidadeRepository;
 public class MensalidadeController {
 	
 	@Autowired
-	AlunoRepository alunoRepository;
+	private AlunoRepository alunoRepository;
 	
 	@Autowired
-	MensalidadeRepository mensalidadeRepository;
+	private MensalidadeRepository mensalidadeRepository;
 	
 	@RequestMapping(value = {"/new-{alunoId}"}, method = RequestMethod.GET)
 	public String newMensalidade(@PathVariable("alunoId") Long alunoId, ModelMap model) {

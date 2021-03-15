@@ -18,7 +18,7 @@ import br.fitness.academy.repository.ExercicioRepository;
 public class ExercicioController {
 	
 	@Autowired
-	ExercicioRepository exercicioRepository;
+	private ExercicioRepository exercicioRepository;
 	
 	@RequestMapping(value = {"/new"}, method = RequestMethod.GET)
 	public String newExercicio(ModelMap model) {

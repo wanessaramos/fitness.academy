@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+     <head th:insert="fragments/head :: head"></head>
+    <body>
+        <header th:replace="fragments/nav :: nav"></header>  
+             <div class="container">
+                  <div class="col-md-12">
+                       <div th:switch="${aviso}">
+                            <div th:case="'sucesso salvar'" class="alert alert-success
+                                alert-dismissible fade show" role="alert">Permissão salva
+                            com sucesso!</div>
+                            <div th:case="'erro salvar'" class="alert alert-danger alertdismissible fade show" role="alert">Erro ao salvar permissão!</div>
+                    </div>
+				</div>
+                <div class="col-md-12">
+                     <h4>Usuario</h4>
+                    <hr>
+				</div>
+                    <div class="col-md-12">
+                         <form  method="post" class="formulario" th:action="@{/update}" th:object="${usuario}">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-1">
+                                                <label for="Id" th:text="id"></label>
+                                                <input type="text" class="form-control" id="id" th:field="*{id}"  readonly="readonly"> 
+                                          </div>
+                                        <div class="col-md-4">
+                                                <label for="nome" th:text="Nome"></label>
+                                                <input type="text" class="form-control" id="nome" th:field="*{nome}" maxlength="100" readonly="readonly"/> 
+                                          </div>
+                                          <div class="col-md-4">
+                                                <label for="username" th:text="Login"></label>
+                                                <input type="text" class="form-control" id="username" name="username" maxlength="100" th:field="*{login}" readonly="readonly"/> 
+                                          </div>
+                                        <div class="col-md-3">
+                                                <label for="password" th:text="Senha"></label>
+                                                <input type="text" class="form-control" id="password" name="password" maxlength="100" th:field="*{senha}" readonly="readonly"/> 
+                                          </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                            <label for="Permissão" th:text="Permissão"></label>
+                                            <div class="form-check"> 
+					    	                  <ul th:each="tipo: ${roles}" class="list-unstyled" id="roles">
+					    		                 <li>
+  									                 <input type="radio" th:field="*{role}" th:value="${tipo}" class="form-check-input"/>
+  									                 <label th:text="${tipo.nome}" class="form-check-label"></label>
+  								                  </li>
+                                                </ul>
+					                       </div>
+                                        </div>
+                                        </div>
+                                          
+                                      </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                        <input type="submit" value="Salvar" class="btn btn-dark"/>
+                                               <a class="btn btn-danger" href="#" id="bt_reset" title="deletar aluno"
+                                        th:href="@{/listar-usuarios}">Cancelar</a>   
+                                        </div>   
+                                    </div>
+                             </div> 
+                        </form>
+                    </div>   
+            </div>
+         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    </body>
+</html>
+
