@@ -2,8 +2,6 @@ package br.fitness.academy.controller;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
-
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -30,6 +28,7 @@ import br.fitness.academy.model.Endereco;
 import br.fitness.academy.model.Role;
 import br.fitness.academy.model.SenhaTemporaria;
 import br.fitness.academy.model.Usuario;
+import br.fitness.academy.repository.AlunoRepository;
 import br.fitness.academy.repository.SenhaTemporariaRepository;
 import br.fitness.academy.repository.UsuarioRepository;
 import br.fitness.academy.security.AutenticacaoService;
@@ -43,6 +42,9 @@ public class SecurityController {
 	private UsuarioRepository usuarioRepository;
 	
 	@Autowired
+	private AlunoRepository alunoRepository;
+	
+	@Autowired
 	private AutenticacaoService autenticacaoService;
 	
 	@Autowired
@@ -53,18 +55,12 @@ public class SecurityController {
 	@RequestMapping(value = {"/"})
 	public String index(ModelMap model) {
 		String userName = getUsuarioLogado();
+		System.out.println("logado"+ userName);
 		Usuario usuario = usuarioRepository.findByLogin(userName);
-		/*if() {
-			
+		Aluno aluno = alunoRepository.findByEmail(userName);
+		if(usuario.getRole().getNome().equals("ROLE_USUARIO")) {
+			return "redirect:/cronograma/aluno-"+aluno.getId()+"-listar-cronogramas";
 		}
-		Aluno aluno = alunoRepository.getOne(id);
-		model.addAttribute("aluno", aluno);
-		Set<Cronograma> cronogramas = aluno.getCronogramas();
-		model.addAttribute("cronogramas", cronogramas);
-		Cronograma cronograma = new Cronograma();
-		model.addAttribute("cronograma", cronograma);*/
-		
-		
 		return "/index";
 	}
 	

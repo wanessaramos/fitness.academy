@@ -15,7 +15,7 @@
                               <button class="dropbtn" id="cronogramas-aluno"> <i class = "icon ion-md-calendar"></i> Cronogramas</button>
                               <div class="dropdown-content">
                                 <a href="cronograma/formNew.html" title="novo cronograma"  th:href="@{'/cronograma/aluno-'+${aluno.id}+'-new-cronograma'}" sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_PROFESSOR')">Cadastrar</a>
-                                <a href="cronograma/listar-cronogramas.html" title="listar cronogramas"
+                                <a href="cronograma/listar-cronogramas.html" title="listar cronogramas" sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_PROFESSOR','ROLE_USUARIO')"
                                     th:href="@{'/cronograma/aluno-'+${aluno.id}+'-listar-cronogramas'}">Listar</a>
                               </div>
                             </div>
@@ -23,7 +23,7 @@
                               <button class="dropbtn" id="mensalidades-aluno"> <i class = "icon ion-md-cash"></i> Mensalidades</button>
                               <div class="dropdown-content">
                                 <a href="/mensalidade/form.html" title="nova mensalidade" id="mensalidades-aluno" th:href="@{'/mensalidade/new-'+${aluno.id}}" sec:authorize="hasRole('ROLE_ADMIN')">Cadastrar</a>
-                                 <a href="mensalidade/listar-mensalidades.html" title="listar mensalidades" sec:authorize="hasRole('ROLE_ADMIN')"
+                                 <a href="mensalidade/listar-mensalidades.html" title="listar mensalidades" sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_USUARIO')"
                                     th:href="@{'/mensalidade/aluno-'+${aluno.id}+'-listar-mensalidades'}">Listar</a>
                               </div>
                             </div>

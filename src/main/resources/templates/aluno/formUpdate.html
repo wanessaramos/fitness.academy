@@ -124,7 +124,9 @@
                                         <div class="col-md-6" style="padding-top: 20px">
                                         <input type="submit" value="Salvar" class="btn btn-dark" sec:authorize="hasRole('ROLE_ADMIN')"/>
                                                <a class="btn btn-danger" href="#" id="bt_reset" title="deletar aluno"
-                                        th:href="@{/aluno/listar-alunos}">Cancelar</a>       
+                                        th:href="@{/aluno/listar-alunos}" sec:authorize="hasRole('ROLE_ADMIN')">Cancelar</a>
+                                            <a class="btn btn-danger" href="#" id="bt_reset" title="deletar aluno"
+                                        th:href="@{/aluno/listar-alunos}" sec:authorize="hasRole('ROLE_PROFESSOR')">Voltar</a> 
                                         </div>   
                                     </div>
                              </div> 

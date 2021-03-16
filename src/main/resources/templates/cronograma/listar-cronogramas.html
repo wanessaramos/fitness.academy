@@ -57,10 +57,13 @@
                                     <td th:text="${cronograma.data_inicio}"></td>
                                     <td th:text="${cronograma.data_fim}"></td>
                                     <td>
-                                        <a class="btn btn-dark" href="cronograma/form.html" value="editar cronograma" th:href="@{'/cronograma/edit-'+${cronograma.id}+'-cronograma-'+${aluno.id}+'-aluno'}">
+                                        <a class="btn btn-dark" href="cronograma/form.html" value="editar cronograma" th:href="@{'/cronograma/edit-'+${cronograma.id}+'-cronograma-'+${aluno.id}+'-aluno'}" sec:authorize="hasRole('ROLE_USUARIO')">
+                                            <i class = "icon ion-md-eye"> </i>Visualizar
+                                        </a>
+                                        <a class="btn btn-dark" href="cronograma/form.html" value="editar cronograma" th:href="@{'/cronograma/edit-'+${cronograma.id}+'-cronograma-'+${aluno.id}+'-aluno'}" sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_PROFESSOR')">
                                             <i class = "icon ion-md-create"> </i>editar
                                         </a>
-                                         <a class="btn btn-danger" id="bt_reset" data-bs-toggle="modal" th:attr="data-bs-target='#modalExcluir' + ${cronograma.id}"> <i class = "icon ion-md-trash"> </i> excluir </a>
+                                         <a class="btn btn-danger" id="bt_reset" data-bs-toggle="modal" th:attr="data-bs-target='#modalExcluir' + ${cronograma.id}" sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_PROFESSOR')"> <i class = "icon ion-md-trash"> </i> excluir </a>
                                             
                                             <!-- MODAL -->
                                             <div class="modal fade" th:attr="id='modalExcluir' + ${cronograma.id}" tabindex="-1">

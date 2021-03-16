@@ -52,7 +52,7 @@
                                     <th>Vencimento</th>
                                     <th>Status</th>
                                     <th>Valor</th>
-                                    <th>Opções</th>
+                                    <th  sec:authorize="hasRole('ROLE_ADMIN')">Opções</th>
                                 </tr>
                              </thead>
                             <tbody>
@@ -61,12 +61,12 @@
                                     <td th:text="${mensalidade.vencimento}"></td>
                                     <td th:text="${mensalidade.status}" th:style="|${mensalidade.status == 'pendente' ? 'color: red;' : 'color: green;'}|"></td>
                                     <td th:text="${mensalidade.valor}"></td>
-                                    <td>
-                                        <a class="btn btn-dark" href="mensalidade/form.html" value="editar mensalidade" th:href="@{'/mensalidade/edit-'+${mensalidade.id}+'-mensalidade-'+${aluno.id}+'-aluno'}" sec:authorize="hasRole('ROLE_ADMIN')">
+                                    <td  sec:authorize="hasRole('ROLE_ADMIN')">
+                                        <a class="btn btn-dark" href="mensalidade/form.html" value="editar mensalidade" th:href="@{'/mensalidade/edit-'+${mensalidade.id}+'-mensalidade-'+${aluno.id}+'-aluno'}">
                                             <i class = "icon ion-md-create"> </i>editar
                                         </a>
                             
-                                        <a class="btn btn-danger" id="bt_reset" data-bs-toggle="modal" th:attr="data-bs-target='#modalExcluir' + ${mensalidade.id}" sec:authorize="hasRole('ROLE_ADMIN')"> <i class = "icon ion-md-trash"> </i> excluir </a>
+                                        <a class="btn btn-danger" id="bt_reset" data-bs-toggle="modal" th:attr="data-bs-target='#modalExcluir' + ${mensalidade.id}"> <i class = "icon ion-md-trash"> </i> excluir </a>
                                             
                                             <!-- MODAL -->
                                             <div class="modal fade" th:attr="id='modalExcluir' + ${mensalidade.id}" tabindex="-1">

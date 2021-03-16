@@ -22,7 +22,7 @@
                         <div class="col-md-12">
                             <div class="row justify-content-between">
                                 <div class="col-md-10"><h4>Cronograma</h4></div>
-                                 <div class="col-md-2" style="padding-bottom: 5px">  
+                                 <div class="col-md-2" style="padding-bottom: 5px" sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_PROFESSOR')">  
                                     <a class="btn btn-danger" id="bt_reset" href="cronograma/formUpdate.html"  title="adicionar exercícios"
                                           th:href="@{'add-'+${cronograma.id}+'-cronograma-'+${aluno.id}+'-aluno'}">
                                          <i class = "icon ion-md-add"> </i>Exercícios
@@ -74,7 +74,7 @@
                                                         <th>Intervalo</th>
                                                         <th>Série</th>
                                                         <th>Repetição</th>
-                                                        <th>Remover</th>
+                                                        <th sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_PROFESSOR')">Remover</th>
                                                      </tr>
                                             </thead>
                                             <tbody>
@@ -84,8 +84,8 @@
                                                         <td th:text="${e.intervalo}" th:field="${cronograma.exercicios[__${start.index}__].intervalo}" th:value="${cronograma.exercicios[__${start.index}__].intervalo}"></td>
                                                         <td th:text="${e.serie}" th:field="${cronograma.exercicios[__${start.index}__].serie}" th:value="${cronograma.exercicios[__${start.index}__].serie}"></td>
                                                         <td th:text="${e.repeticoes}" th:field="${cronograma.exercicios[__${start.index}__].repeticoes}" th:value="${cronograma.exercicios[__${start.index}__].repeticoes}"></td>
-                                                        <td>
-                                                              <a class="btn btn-danger" id="bt_reset" data-bs-toggle="modal" th:attr="data-bs-target='#modalExcluir' + ${cronograma.id}"> <i class = "icon ion-md-trash"> </i> </a>
+                                                        <td sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_PROFESSOR')">
+                                                              <a class="btn btn-danger" id="bt_reset" data-bs-toggle="modal" th:attr="data-bs-target='#modalExcluir' + ${cronograma.id}" accesskey=""> <i class = "icon ion-md-trash"> </i> </a>
                                             
                                                                 <!-- MODAL -->
                                                                 <div class="modal fade" th:attr="id='modalExcluir' + ${cronograma.id}" tabindex="-1">
@@ -113,10 +113,14 @@
                                                             </tbody>
                                             </table>
 
-                                                <input type="submit" value="Salvar" class="btn btn-dark"/>
+                                                <input type="submit" value="Salvar" class="btn btn-dark" sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_PROFESSOR')"/>
                                                 <a class="btn btn-danger" href="aluno/listar-cronogramas.html" 
                                                                  th:href="@{'/cronograma/aluno-'+${aluno.id}+'-listar-cronogramas'}" 
-                                                   id="bt_reset">Cancelar
+                                                   id="bt_reset" sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_PROFESSOR')">Cancelar
+                                                            </a>
+                                <a class="btn btn-danger" href="aluno/listar-cronogramas.html" 
+                                                                 th:href="@{'/cronograma/aluno-'+${aluno.id}+'-listar-cronogramas'}" 
+                                                   id="bt_reset" sec:authorize="hasRole('ROLE_USUARIO')">Voltar
                                                             </a>
                                         </div>
                                   </form> 
