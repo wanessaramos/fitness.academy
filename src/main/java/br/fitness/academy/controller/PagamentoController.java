@@ -1,5 +1,9 @@
 package br.fitness.academy.controller;
 
+import java.io.IOException;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +14,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import br.fitness.academy.report.GeradorDeRelatorio;
+
+import com.itextpdf.text.DocumentException;
+
 import br.fitness.academy.model.Funcionario;
+import br.fitness.academy.model.Mensalidade;
 import br.fitness.academy.model.Pagamento;
 import br.fitness.academy.repository.FuncionarioRepository;
 import br.fitness.academy.repository.PagamentoRepository;
@@ -25,6 +36,8 @@ public class PagamentoController {
 	
 	@Autowired
 	private FuncionarioRepository funcionarioRepository;
+	
+	private GeradorDeRelatorio geradorRelatorio = new GeradorDeRelatorio();
 	
 	@RequestMapping(value = {"/funcionario-{id}-new-pagamento"})
 	public String newPagamentoFuncionario(@PathVariable("id") Long id, ModelMap model) {
@@ -118,5 +131,94 @@ public class PagamentoController {
 		
 		return "redirect:/pagamento/funcionario-"+funcionarioId+"-listar-pagamentos";
 	}
+	
+	@RequestMapping(value="/listar-todos-pagamentos", method = RequestMethod.GET)
+	public ModelAndView getAllPagamentos() {
+		ModelAndView mv = new ModelAndView("pagamento/listar-todos-pagamentos");
+		Double totalpagos = 0.0; Double totalpendentes = 0.0;
+		List<Pagamento> pagpagas = pagamentoRepository.findByStatus("pago");
+		for(Pagamento pago : pagpagas) {
+			totalpagos+=pago.getValor();
+		}
+		mv.addObject("pagos",totalpagos);
+		List<Pagamento> pagpendentes = pagamentoRepository.findByStatus("pendente");
+		for(Pagamento pendente : pagpendentes) {
+			totalpendentes+=pendente.getValor();
+		}
+		mv.addObject("pendentes",totalpendentes);
+		List<Funcionario> funcionarios = funcionarioRepository.findAll();
+		mv.addObject("funcionarios",funcionarios);
+		return mv;
+	}
+	
+	@RequestMapping(value="/listar", method = RequestMethod.GET)
+	public String listarPagamentosPorData(@RequestParam Date data, ModelMap model) {
+		try {
+			Double totalpagos = 0.0; Double totalpendentes = 0.0;
+			List<Funcionario> funcionarioAll = funcionarioRepository.findAll();
+			List<Funcionario> funcionarios = new ArrayList<>();
+			for(Funcionario funcionario : funcionarioAll) {
+				for(Pagamento pagamento : funcionario.getPagamentos()) {
+					if(pagamento.getEntrega().equals(data)){
+						funcionarios.add(funcionario);
+						if(pagamento.getStatus().equals("pago")) {
+							totalpagos+=pagamento.getValor();
+						}else {
+							totalpendentes+=pagamento.getValor();
+						}
+					}
+				}
+			}
+			model.addAttribute("pagos",totalpagos);
+			model.addAttribute("pendentes",totalpendentes);
+			model.addAttribute("funcionarios",funcionarios);
+			model.addAttribute("date",data);
+			
+			return "pagamento/listar-todos-pagamentos";
+			
+		} catch (Exception e) {
+			return "pagamento/listar-todos-pagamentos";
+		}	
+	}
+	
+	@RequestMapping("/imprimir")
+	public String relatorioPagamentos(
+			RedirectAttributes attr) throws IOException, DocumentException {
+
+	 long time = System.currentTimeMillis();
+	 List<Pagamento> pagamentos = pagamentoRepository.findAll();
+	 
+	 if(!pagamentos.isEmpty()) {
+		 int numPagamentos = pagamentos.size();
+		 String[] colunas = new String[] {"ID", "DESCRIÇÃO",
+				 "DATA", "STATUS","VALOR"};
+		
+		 geradorRelatorio.imagem(time+"pagamentos.pdf","fitness.png", 750, 200, 45, 45);
+		 geradorRelatorio.cabecalho("ACADEMY FITNESS", "Relatório de Pagamentos");
+		 //geradorRelatorio.qrcode("Exemplo de QRCode", 600, 250, 200);
+		 
+		StringBuilder stringPagamentos = new StringBuilder("");
+		 
+		for(Pagamento pagamento : pagamentos) {
+			stringPagamentos.append(pagamento.getId()).append(",");
+			stringPagamentos.append(pagamento.getDescricao()).append(",");
+			stringPagamentos.append(pagamento.getEntrega()).append(",");
+			stringPagamentos.append(pagamento.getStatus()).append(",");
+			stringPagamentos.append(Double.toString(pagamento.getValor())).append(",");	
+		 }
+		 
+		 //System.out.println("strings "+stringPagamentos);
+		 geradorRelatorio.createTabela(colunas, stringPagamentos);
+		 geradorRelatorio.rodape();
+		 
+		 attr.addAttribute("mensagem", "Relatório gerado com sucesso!");
+		 
+	 } else {
+		 
+		 attr.addAttribute("mensagem", "Erro ao gerar o Relatório!");
+	 }
+	
+	 return "pagamento/listar-todos-pagamentos";
+	 }
 
 }

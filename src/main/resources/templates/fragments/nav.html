@@ -54,6 +54,15 @@
                         <li><a class="dropdown-item" href="exercicio/listar-exercicios.html" th:href="@{/exercicio/listar-exercicios}">Listar</a></li>
                       </ul>
                     </li>
+                      <li class="nav-item dropdown"  sec:authorize="hasRole('ROLE_ADMIN')">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Relatórios
+                      </a>
+                      <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="relatorios/listar-mensalidades.html" th:href="@{/mensalidade/listar-todas-mensalidades}">Mensalidades</a></li>
+                        <li><a class="dropdown-item" href="exercicio/listar-exercicios.html" th:href="@{/pagamento/listar-todos-pagamentos}">Pagamentos</a></li>
+                      </ul>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" th:href="@{/listar-usuarios}" 
                            sec:authorize="hasRole('ROLE_ADMIN')">Usuarios</a>

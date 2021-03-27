@@ -11,7 +11,7 @@ public class Pagamento {
 	private long id;
 	
 	@Column(nullable=false)
-	private Date date_pagamento;
+	private Date entrega;
 	
 	@Column(nullable=false,length=10)
 	private String status;
@@ -27,13 +27,14 @@ public class Pagamento {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Pagamento(Date date_pagamento, String status, double valor, String descricao) {
+	public Pagamento(Date entrega, String status, double valor, String descricao) {
 		super();
-		this.date_pagamento = date_pagamento;
+		this.entrega = entrega;
 		this.status = status;
 		this.valor = valor;
 		this.descricao = descricao;
 	}
+
 
 	public long getId() {
 		return id;
@@ -43,12 +44,12 @@ public class Pagamento {
 		this.id = id;
 	}
 
-	public Date getDate_pagamento() {
-		return date_pagamento;
+	public Date getEntrega() {
+		return entrega;
 	}
 
-	public void setDate_pagamento(Date date_pagamento) {
-		this.date_pagamento = date_pagamento;
+	public void setEntrega(Date entrega) {
+		this.entrega = entrega;
 	}
 
 	public String getStatus() {
@@ -77,8 +78,8 @@ public class Pagamento {
 
 	@Override
 	public String toString() {
-		return "Pagamento [id=" + id + ", date_pagamento=" + date_pagamento + ", status=" + status + ", valor=" + valor
+		return "Pagamento [id=" + id + ", entrega=" + entrega + ", status=" + status + ", valor=" + valor
 				+ ", descricao=" + descricao + "]";
 	}
-	
+
 }

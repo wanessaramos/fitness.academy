@@ -160,7 +160,7 @@ public class AlunoController {
 				Endereco nextEndereco = enderecoRepository.getOne(a.getEndereco().getId());
 				aluno.getEndereco().setId(nextEndereco.getId());
 				enderecoRepository.saveAndFlush(aluno.getEndereco());
-				//System.out.println(aluno.getEndereco());
+				System.out.println(aluno.getEndereco());
 			}
 				
 				List<Turma> turmas = turmaRepository.findAll();
@@ -176,6 +176,7 @@ public class AlunoController {
 			Turma turma = turmaRepository.getOne(id_turma);
 			turma.addAluno(alunoSaved);
 			turmaRepository.saveAndFlush(turma);
+			
 			
 			if(!fileName.equals("")) {
 				ClearFolder.remover(new File("aluno-photos/"+alunoSaved.getId()));
@@ -194,7 +195,7 @@ public class AlunoController {
 			
 			attr.addFlashAttribute("aviso","erro salvar");
 			
-			return "/aluno/formUpdate";
+			return "redirect:/aluno/edit-"+aluno.getId()+"-aluno";
 		}	
 	}
 	

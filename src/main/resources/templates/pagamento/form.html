@@ -55,7 +55,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <label for="data" th:text="Data"></label>
-                                        <input type="date" class="form-control" id="date_pagamento" name="date_pagamento" required th:field="*{date_pagamento}">
+                                        <input type="date" class="form-control" id="entrega" name="entrega" required th:field="*{entrega}">
                                     </div>
                                     <div class="col-md-3">
                                         <label for="Status" th:text="Status"></label>
@@ -81,6 +81,6 @@
 </html>
 <script>
     
-    document.getElementById('date_pagamento').min = new Date().toISOString().slice(0, 10);
+    document.getElementById('entrega').min = new Date().toISOString().slice(0, 10);
   
 </script>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+    <head th:insert="fragments/head :: head"></head>
+    <body>
+        <header th:replace="fragments/nav :: nav"></header> 
+             <div class="container">
+                <div class="col-md-12">
+                     <h4>Mensalidades</h4>
+                    <hr>
+				</div>
+               
+                    <div class="col-md-12">
+                            <table class=" table table-striped"  th:unless="${#lists.isEmpty(alunos)}">
+                                 <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Nome</th>
+                                        <th scope="col">Vencimento</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Valor</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr scope="row" th:each="aluno,num : ${alunos}">
+                                        <td th:text="${num.count}"></td>
+                                        <td th:text="${aluno.nome}"></td>
+                                        <td>
+							                 <p th:each="mens : ${aluno.mensalidades}" th:text="${mens.mes}"></p>
+						                </td>
+                                       <!-- <td th:text="${mensalidades.mes}"></td>
+                                        <td th:text="${mensalidades.vencimento}"></td>
+                                        <td th:text="${mensalidades.status}"></td>
+                                        <td th:text="${mensalidades.valor}"></td>-->
+                                    </tr>
+                                </tbody>
+                            </table>
+                    </div>
+            </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    </body>
+</html>

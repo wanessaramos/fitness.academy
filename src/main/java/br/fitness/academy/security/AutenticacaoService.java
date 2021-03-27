@@ -59,7 +59,7 @@ public class AutenticacaoService implements UserDetailsService{
 			
 			try {
 				Role role = verificaUsuario(usuario.getLogin());
-				
+				//Role role = Role.ROLE_ADMIN;
 				Permissao permissao = verificaPermissao(role.getNome());
 				//Role role = Role.ROLE_USUARIO;
 				Usuario newUsuario = new Usuario();

@@ -58,7 +58,7 @@
                             <tbody>
                                 <tr th:each="pagamento: ${pagamentos}">
                                     <td th:text="${pagamento.descricao}"></td>
-                                    <td th:text="${pagamento.date_pagamento}"></td>
+                                    <td th:text="${pagamento.entrega}"></td>
                                     <td th:text="${pagamento.status}" th:style="|${pagamento.status == 'pendente' ? 'color: red;' : 'color: green;'}|"></td>
                                     <td th:text="${pagamento.valor}"></td>
                                     <td>
