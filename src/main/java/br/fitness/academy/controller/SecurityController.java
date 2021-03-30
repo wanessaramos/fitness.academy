@@ -21,10 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import br.fitness.academy.model.Aluno;
-import br.fitness.academy.model.Cronograma;
-import br.fitness.academy.model.Endereco;
 import br.fitness.academy.model.Role;
 import br.fitness.academy.model.SenhaTemporaria;
 import br.fitness.academy.model.Usuario;
@@ -57,11 +54,15 @@ public class SecurityController {
 		String userName = getUsuarioLogado();
 		System.out.println("logado"+ userName);
 		Usuario usuario = usuarioRepository.findByLogin(userName);
-		Aluno aluno = alunoRepository.findByEmail(userName);
-		if(usuario.getRole().getNome().equals("ROLE_USUARIO")) {
-			return "redirect:/cronograma/aluno-"+aluno.getId()+"-listar-cronogramas";
+		if(usuario != null) {
+			Aluno aluno = alunoRepository.findByEmail(userName);
+			if(usuario.getRole().getNome().equals("ROLE_USUARIO")) {
+				return "redirect:/cronograma/aluno-"+aluno.getId()+"-listar-cronogramas";
+			}else {
+				return "/index";
+			}
 		}
-		return "/index";
+		return "/login";
 	}
 	
 	public static String getUsuarioLogado() {

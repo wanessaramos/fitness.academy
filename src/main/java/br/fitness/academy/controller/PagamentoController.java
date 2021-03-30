@@ -18,11 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.fitness.academy.report.GeradorDeRelatorio;
-
 import com.itextpdf.text.DocumentException;
-
 import br.fitness.academy.model.Funcionario;
-import br.fitness.academy.model.Mensalidade;
 import br.fitness.academy.model.Pagamento;
 import br.fitness.academy.repository.FuncionarioRepository;
 import br.fitness.academy.repository.PagamentoRepository;
@@ -181,7 +178,7 @@ public class PagamentoController {
 		}	
 	}
 	
-	@RequestMapping("/imprimir")
+	/*@RequestMapping("/imprimir")
 	public String relatorioPagamentos(
 			RedirectAttributes attr) throws IOException, DocumentException {
 
@@ -219,6 +216,47 @@ public class PagamentoController {
 	 }
 	
 	 return "pagamento/listar-todos-pagamentos";
-	 }
+	 }*/
+	
+	@RequestMapping("/imprimir")
+	public String relatorioPagamentos(
+			RedirectAttributes attr) throws IOException, DocumentException {
 
+	 long time = System.currentTimeMillis();
+	 List<Funcionario> funcionarios = funcionarioRepository.findAll();
+	 
+	 if(!funcionarios.isEmpty()) {
+		 String[] colunas = new String[] {"NOME", "CPF","DESCRIÇÃO",
+				 "DATA", "STATUS","VALOR"};
+		
+		 geradorRelatorio.imagem(time+"pagamentos.pdf","fitness.png", 750, 200, 45, 45);
+		 geradorRelatorio.cabecalho("ACADEMY FITNESS", "Relatório de Pagamentos");
+		 //geradorRelatorio.qrcode("Exemplo de QRCode", 600, 250, 200);
+		 
+		StringBuilder stringPagamentos = new StringBuilder("");
+		 
+		for(Funcionario funcionario : funcionarios) {
+			stringPagamentos.append(funcionario.getNome()).append(",");
+			stringPagamentos.append(funcionario.getCpf()).append(",");
+			for(Pagamento pagamento: funcionario.getPagamentos()) {
+				stringPagamentos.append(pagamento.getDescricao()).append(",");
+				stringPagamentos.append(pagamento.getEntrega()).append(",");
+				stringPagamentos.append(pagamento.getStatus()).append(",");
+				stringPagamentos.append(Double.toString(pagamento.getValor())).append(",");
+			}	
+		 }
+		 
+		 //System.out.println("strings "+stringPagamentos);
+		 geradorRelatorio.createTabela(colunas, stringPagamentos);
+		 geradorRelatorio.rodape();
+		 
+		 attr.addAttribute("mensagem", "Relatório gerado com sucesso!");
+		 
+	 } else {
+		 
+		 attr.addAttribute("mensagem", "Erro ao gerar o Relatório!");
+	 }
+	
+	 return "pagamento/listar-todos-pagamentos";
+	 }
 }

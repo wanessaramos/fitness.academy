@@ -19,7 +19,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.itextpdf.text.DocumentException;
 import br.fitness.academy.model.Aluno;
+import br.fitness.academy.model.Funcionario;
 import br.fitness.academy.model.Mensalidade;
+import br.fitness.academy.model.Pagamento;
 import br.fitness.academy.report.GeradorDeRelatorio;
 import br.fitness.academy.repository.AlunoRepository;
 import br.fitness.academy.repository.MensalidadeRepository;
@@ -175,7 +177,7 @@ public class MensalidadeController {
 		}	
 	}
 	
-	@RequestMapping("/imprimir")
+	/*@RequestMapping("/imprimir")
 	public String relatorioMensalidades(
 			RedirectAttributes attr) throws IOException, DocumentException {
 
@@ -203,6 +205,48 @@ public class MensalidadeController {
 		 
 		 //System.out.println("strings "+stringMensalidades);
 		 geradorRelatorio.createTabela(colunas, stringMensalidades);
+		 geradorRelatorio.rodape();
+		 
+		 attr.addAttribute("mensagem", "Relatório gerado com sucesso!");
+		 
+	 } else {
+		 
+		 attr.addAttribute("mensagem", "Erro ao gerar o Relatório!");
+	 }
+	
+	 return "mensalidade/listar-todas-mensalidades";
+	 }*/
+	
+	@RequestMapping("/imprimir")
+	public String relatorioMensalidades(
+			RedirectAttributes attr) throws IOException, DocumentException {
+
+	 long time = System.currentTimeMillis();
+	 List<Aluno> alunos = alunoRepository.findAll();
+	 
+	 if(!alunos.isEmpty()) {
+		 String[] colunas = new String[] {"NOME", "CPF","MÊS",
+				 "VENCIMENTO", "STATUS","VALOR"};
+		
+		 geradorRelatorio.imagem(time+"mensalidades.pdf","fitness.png", 750, 200, 45, 45);
+		 geradorRelatorio.cabecalho("ACADEMY FITNESS", "Relatório de Mensalidades");
+		 //geradorRelatorio.qrcode("Exemplo de QRCode", 600, 250, 200);
+		 
+		StringBuilder stringMenalidades = new StringBuilder("");
+		 
+		for(Aluno aluno : alunos) {
+			stringMenalidades.append(aluno.getNome()).append(",");
+			stringMenalidades.append(aluno.getCpf()).append(",");
+			for(Mensalidade mensalidade: aluno.getMensalidades()) {
+				stringMenalidades.append(mensalidade.getMes()).append(",");
+				stringMenalidades.append(mensalidade.getVencimento()).append(",");
+				stringMenalidades.append(mensalidade.getStatus()).append(",");
+				stringMenalidades.append(Double.toString(mensalidade.getValor())).append(",");
+			}	
+		 }
+		 
+		 //System.out.println("strings "+stringMenalidades);
+		 geradorRelatorio.createTabela(colunas, stringMenalidades);
 		 geradorRelatorio.rodape();
 		 
 		 attr.addAttribute("mensagem", "Relatório gerado com sucesso!");
